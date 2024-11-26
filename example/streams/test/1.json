@@ -1,0 +1,19 @@
+{
+	"squirrelpub": {
+		"type": "message",
+		"message_type": "post",
+		"id": 1,
+		"owner_id": "john.doe.example.com",
+		"stream": "https://example.github.io/squirrelpub_example/streams/test",
+		"timestamp": "1732564679",
+		"post": {
+			"type": "microblog",
+			"parent": null,
+			"content": {
+				"type": "text/markdown",
+				"content": "Hello World!"
+			}
+		}
+	},
+	"signature": ""
+}

@@ -1,0 +1,12 @@
+{
+	"squirrelpub": {
+		"type": "message",
+		"message_type": "delete",
+		"id": "command_0",
+		"owner_id": "john.doe.example.com",
+		"stream": "https://example.github.io/squirrelpub_example/streams/test",
+		"timestamp": "1732564979",
+		"target_id": "2"
+	},
+	"signature": ""
+}

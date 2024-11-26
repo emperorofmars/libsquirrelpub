@@ -3,7 +3,7 @@ import { denoPlugins } from "@luca/esbuild-deno-loader";
 
 const result = await esbuild.build({
 	plugins: [...denoPlugins()],
-	entryPoints: ["./src/libsquirrelpub.mjs"],
+	entryPoints: ["./src/libsquirrelpub.mts"],
 	outdir: "./dist/",
 	bundle: true,
 	format: "esm",

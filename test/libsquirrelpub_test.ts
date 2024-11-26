@@ -1,6 +1,6 @@
 import { assertEquals, assertIsError, fail } from "@std/assert";
 import { assertSpyCalls, assertSpyCallArgs } from "@std/testing/mock";
-import squirrelpub from "../src/libsquirrelpub.mjs";
+import squirrelpub from "../src/libsquirrelpub.mts";
 import { fetchSpy } from "./utils.ts";
 
 Deno.test(async function fetchIdentityTest() {
