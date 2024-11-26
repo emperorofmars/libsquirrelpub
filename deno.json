@@ -1,15 +1,30 @@
 {
-  "name": "@squirrelpub/libsquirrelpub",
-  "version": "0.0.1",
-  "exports": "./src/libsquirrelpub.mjs",
-  "tasks": {
-    "dev": "deno --allow-net test --watch",
-	"bundle": "deno --allow-read --allow-write --allow-env --allow-net --allow-run bundle.ts"
-  },
-  "license": "MPL-2.0",
-  "imports": {
-    "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@^0.11.0",
-    "@std/assert": "jsr:@std/assert@1",
-    "@std/testing": "jsr:@std/testing@^1.0.5"
-  }
+	"name": "@squirrelpub/libsquirrelpub",
+	"version": "0.0.1",
+	"exports": "./src/libsquirrelpub.mjs",
+	"tasks": {
+		"dev": "deno --allow-net test --watch",
+		"bundle": "deno --allow-read --allow-write --allow-env --allow-net --allow-run bundle.ts",
+		"dts": "npx -p typescript tsc -p ./tsconfig.jsonc"
+	},
+	"license": "MPL-2.0",
+	"imports": {
+		"@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@^0.11.0",
+		"@std/assert": "jsr:@std/assert@1",
+		"@std/testing": "jsr:@std/testing@^1.0.5"
+	},
+	"compilerOptions": {
+		"checkJs": true
+	},
+	"fmt": {
+		"useTabs": true,
+		"indentWidth": 4,
+		"semiColons": true,
+		"singleQuote": false,
+		"lineWidth": 160,
+		"proseWrap": "preserve"
+	},
+	"exclude": [
+		"dist/"
+	]
 }

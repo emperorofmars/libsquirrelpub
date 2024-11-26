@@ -1,5 +1,6 @@
 dist
+types
 node_modules
-.vscode/*
+.vscode
 logs
 *.log
