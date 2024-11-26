@@ -1,6 +1,7 @@
 dist
-types
 node_modules
 .vscode
 logs
 *.log
+coverage
+.coverage

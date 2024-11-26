@@ -6,32 +6,11 @@ import type { Content } from "./JsonObjects.mts";
 import { SquirrelpubBase } from './SquirrelpubBase.mts';
 
 /**
- * Describes a Stream and how it is to be displayed.
- * Also defines where this Stream is being backed up to.
- */
-export class StreamReference {
-	url: string;
-	active_alias: string | undefined;
-	replications: string[] | undefined;
-	
-	constructor(options: { url: string; active_alias: string | undefined; replications: string[] | undefined; }) {
-		this.url = options.url;
-		this.active_alias = options.active_alias;
-		this.replications = options.replications;
-	}
-}
-
-/**
  * A link with a displayname. To be displayed in an Identity profile.
  */
 export class NamedLink {
-	name: string;
-	url: string;
-	
-	constructor(options: { name: string; url: string; }) {
-		this.name = options.name;
-		this.url = options.url;
-	}
+	name!: string;
+	url!: string;
 }
 
 /**
@@ -73,14 +52,30 @@ export class IdentityProfile {
 	}
 }
 
-export class Host {
-	stream_registry: StreamReference | undefined;
-	federation_registry: StreamReference | undefined;
-	
-	constructor(options: { stream_registry: StreamReference | undefined; federation_registry: StreamReference | undefined; }) {
-		this.stream_registry = options.stream_registry;
-		this.federation_registry = options.federation_registry;
-	}
+/**
+ * Defines the relationships to other Identities.
+ */
+export class SocialGraph {
+	subscribed!: {
+		len: number;
+		url: string;
+	};
+	subscribers!: {
+		len: number;
+		url: string;
+	};
+}
+
+/**
+ * Defines the location of the public key of an Identity.
+ */
+export class PublicKeyReference {
+	/** Key type, like id_rsa or ed25519 */
+	type!: string;
+	/** The key can be directly embebbed */
+	key: string | undefined;
+	/** The key can be linked */
+	url: string | undefined;
 }
 
 /**
@@ -101,57 +96,108 @@ export class Identity extends SquirrelpubBase {
 		// TODO implement json schema validation
 	}
 
-	/** Domain without the 'squirrelpub' hostname prefixed */
+	/** Domain without the 'squirrelpub' hostname prefixed. */
 	get id(): string { return this.squirrelpub.id; }
+
+	/** List of other Identites which are the same real-life entity. This serves resiliency. */
+	get alias_identities(): string[] | undefined { return this.squirrelpub.alias_identities; }
+
+	/** If set, then this alias will be fetched by the client and displayed. This serves resiliency. */
+	get primary_alias(): string | undefined { return this.squirrelpub.primary_alias; }
+
+	/** {@link PublicKeyReference} */
+	get public_key(): PublicKeyReference { return this.squirrelpub.public_key; }
 
 	/** Identity types can be 'user', 'server', 'cache' or any combination thereof. */
 	get identity_type(): string { return this.squirrelpub.identity_type; }
 
-	/** @type {string} */
-	get name(): string | undefined { return this.profile?.name; }
-
-	/** @type {IdentityProfile} */
+	/** {@link IdentityProfile} */
 	get profile(): IdentityProfile { return this.squirrelpub.profile; }
 
-	/** The list of Streams to which this Identity posts. */
-	get streams(): StreamReference[] { return this.squirrelpub.streams ? this.squirrelpub.streams : []; }
+	/** URL of this Identities Stream. {@link Stream} */
+	get stream(): string | undefined { return this.squirrelpub.stream; }
+	
+	/**
+	 * {@link Stream}
+	 * 
+	 * Backup Streams in case the main one goes down.
+	 * This serves resiliency.
+	 */
+	get stream_replications(): string[] | undefined { return this.squirrelpub.stream_replications; }
+
+	/**
+	 * {@link SocialGraph}
+	 * 
+	 * If omitted this Identity can not have authenticated followers or follow any other Identity.
+	 * If you follow such an Identity, it will never know about you following it.
+	 */
+	get social_graph(): SocialGraph | undefined { return this.squirrelpub.social_graph; }
+
+	/**
+	 * URL to a StreamRegistry hosted by this Identity.
+	 * A StreamRegistry hosts Streams for other Identities.
+	 */
+	get stream_registry(): string | undefined { return this.squirrelpub.stream_registry; }
+
+	/**
+	 * URL to a FederationRegistry hosted by this Identity.
+	 * A FederationRegistry hosts endpoints to search for content across the entire network.
+	 */
+	get federation_registry(): string | undefined { return this.squirrelpub.federation_registry; }
+
+	/**
+	 * URL to a CachingService hosted by this Identity.
+	 * A CachingService hosts endpoints to fetch content from.
+	 */
+	get caching_service(): string | undefined { return this.squirrelpub.caching_service; }
+
+	/**
+	 * A list of Squirrelpub IDs which this Identity knows to exist.
+	 * Acts as a 'seed' for automatic federation & discovery.
+	 */
+	get federation_anchors(): string[] { return this.squirrelpub.federation_anchors ? this.squirrelpub.federation_anchors : [];  }
 
 	
-	/** @type {string} */
+
+	/** Optional display name for this Identity */
+	get name(): string | undefined { return this.profile?.name; }
+
+	/** Pretty print the type of this Identity */
 	get display_identity_type(): string { return this.identity_type[0].toUpperCase() + this.identity_type.slice(1); }
 
-	/** @type {string} */
+	/** Pretty print the name and ID of this Identity */
 	get display_id(): string { return `${this.name} (${this.id})`; }
 
-	/** @type {string} */
+	/** Pretty print the type, name and ID of this Identity */
 	get display(): string { return `${this.display_identity_type}: ${this.display_id}`; }
 }
 
-
 /**
- * Load a squirrelpub identity by its id (domain without the 'squirrelpub' hostname prefixed)
+ * Construct an URL from a Squirrelpub ID, from which the Identity can be fetched.
  * 
- * @param {string} id - the identities domain, without the 'squirrelpub' hostname prefixed
+ * A Squirrelpub ID must be a valid DNS hostname.
+ * To turn an ID into the Squirrelpub hostname, prefix it with `squirrelpub.`.
+ * To turn a Squirrelpub hostname into the final URL from which the Identity can be fetched, prefix it with `https://` and append it with `/.squirrelpub/identity"`.
+ * 
+ * @param {string} id - the ID, without the 'squirrelpub' hostname prefixed
  * @returns {URL} The squirrelpub fetch URL
  * @throws If the id is an invalid hostname
  */
 export function constructIdentityURL(id: string): URL {
 	if(!id.includes(".")) throw new Error("A Squirrelpub ID must be a valid domain! For example: 'example.com'");
 
-	const squirrelpubId = "squirrelpub." + id;
-	const url = new URL("https://" + squirrelpubId + "/.squirrelpub/identity");
+	const squirrelpubHost = "squirrelpub." + id;
+	const url = new URL("https://" + squirrelpubHost + "/.squirrelpub/identity");
 
-	if(url.hostname != squirrelpubId)
+	if(url.hostname != squirrelpubHost)
 	{
 		throw new Error("Invalid Squirrelpub ID");
 	}
-
 	return url;
 }
 
-
 /**
- * Fetch a squirrelpub identity by its id (domain without the 'squirrelpub' hostname prefixed)
+ * Load a squirrelpub identity by its ID (domain without the 'squirrelpub' hostname prefixed).
  * 
  * @param {string} id - the identities domain, without the 'squirrelpub' hostname prefixed
  * @returns {Promise<Identity>} The squirrelpub identity if found

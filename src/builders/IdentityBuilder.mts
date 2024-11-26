@@ -5,6 +5,9 @@ import { Content } from "../objects/JsonObjects.mts";
  * @memberof module:Squirrelpub
  */
 
+/**
+ * Helper to build a Squirrelpub Identity object.
+ */
 export default class IdentityBuilder {
 	id: string = "";
 	public_key = {type: "", key: "", url: ""};

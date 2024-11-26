@@ -3,7 +3,7 @@
 		"type": "identity",
 		"id": "john.doe.example.com",
 		"public_key": {
-			"type": "rsa_4096",
+			"type": "ed25519",
 			"key": "base64 encoded key OR",
 			"url": "OR a link to the key"
 		},
@@ -56,7 +56,7 @@
 					"value": true
 				},
 				{
-					"type": "current_song.spotify.com",
+					"type": "com.spotify.current_song",
 					"name": "Spotify",
 					"value": {
 						"spotify_user": "john_doe",
@@ -65,61 +65,25 @@
 				}
 			]
 		},
-		"streams": [
-			{
-				"url": "https://example.github.io/squirrelpub_example/streams/test",
-				"active_alias": "john.doe.example.com",
-				"replications": [
-					"https://backup.somewhere.else.com/atsomepath"
-				]
-			}
+		"stream": "https://example.github.io/squirrelpub_example/streams/test",
+		"stream_replications": [
+			"https://backup.somewhere.else.com/atsomepath"
 		],
 		"social_graph": {
-			"subscribed_public": {
-				"len": 1,
-				"subscribtions_url": "",
-				"subscribtions": [
-					{
-						"id": "someone-really-awesome.example.com",
-						"streams": true
-					}
-				]
+			"subscribed": {
+				"len": 23,
+				"url": ""
 			},
-			"subscribers_public": {
-				"len": 2,
-				"subscribers_url": "",
-				"subscribers": [
-					{
-						"id": "someone.else.some.tld",
-						"streams": [
-							"https://example.github.io/squirrelpub_example/streams/test"
-						]
-					},
-					{
-						"id": "someone.even.more.different.com",
-						"streams": true
-					}
-				]
+			"subscribers": {
+				"len": 24,
+				"url": ""
 			}
 		},
-		"stream_registry": {
-			"url": "https://example.github.io/squirrelpub_example/streams",
-			"active_alias": "john.doe.example.com",
-			"replications": [
-				"https://example.backup.example.com/squirrelpub_example/streams"
-			]
-		},
-		"federation_registry": {
-			"url": "https://example.github.io/squirrelpub_example/federation",
-			"active_alias": "john.doe.example.com",
-			"replications": [
-				"https://example.backup.example.com/squirrelpub_example/federation"
-			]
-		},
-		"caching_service": {
-			"url": "https://example.github.io/squirrelpub_example/cache"
-		},
+		"stream_registry": "https://example.github.io/squirrelpub_example/streams",
+		"federation_registry": "https://example.github.io/squirrelpub_example/federation",
+		"caching_service": "https://example.github.io/squirrelpub_example/cache",
 		"federation_anchors": [
+			"squirrelpub.com",
 			"example.com"
 		]
 	},
