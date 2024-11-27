@@ -68,11 +68,11 @@ The response will be the Squirrelpub identity object.
 			}
 		],
 		"social_graph": {
-			"subscribed_public": {
+			"subscribed": {
 				"len": 23,
 				"url": "https://squirrelpub.john.doe.example.com/.squirrelpub/subscribed"
 			},
-			"subscribers_public": {
+			"subscribers": {
 				"len": 24,
 				"url": "https://squirrelpub.john.doe.example.com/.squirrelpub/subscribers"
 			}
