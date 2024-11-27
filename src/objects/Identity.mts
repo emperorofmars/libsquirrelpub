@@ -1,5 +1,7 @@
+import { importKey } from "../util/Crypto.mts";
 import type { Content } from "./JsonObjects.mts";
-import { SquirrelpubBase } from './SquirrelpubBase.mts';
+import type { SquirrelpubMeta, SquirrelpubBase } from './SquirrelpubBase.mts';
+import { SquirrelpubPayload } from "./SquirrelpubPayload.mts";
 
 /**
  * A link with a displayname. To be displayed in an Identity profile.
@@ -57,113 +59,121 @@ export interface SocialGraph {
 }
 
 /**
- * Defines the location of the public key of an Identity.
+ * The Identity is the central object in Squirrelpub. It describes an entity which can as a user, server, cache or any combination thereof.
  */
-export interface PublicKeyReference {
-	/** Key type, like id_rsa or ed25519 */
-	type: string;
-	/** The key can be directly embebbed */
-	key: string | undefined;
-	/** The key can be linked */
-	url: string | undefined;
-}
-
-/**
- * Squirrelpub Identity.
- * 
- * An Identity can be a user, server, cache or any combination thereof.
- */
-export class Identity extends SquirrelpubBase {
+export class Identity implements SquirrelpubBase {
 	/**
-	 * Create a new Identity from the fetched & parsed JSON object.
-	 * 
-	 * @param {any} raw_squirrelpub_object - Parsed JSON
-	 * @param {string} original_url - The URL this object was fetched from
-	 */// deno-lint-ignore no-explicit-any
-	constructor(raw_squirrelpub_object: any, original_url: string) {
-		super(raw_squirrelpub_object, original_url);
-		if(this.type != "identity") throw new Error("Squirrelpub object is not an Identity!");
-
-		// TODO implement json schema validation
-	}
+	 * The Squirrelpub object contains the squirrelpub type, version and optional URL to retrieve the signature of the original payload, if not present in the http header.
+	 */
+	squirrelpub!: SquirrelpubMeta;
 
 	/** Domain without the 'squirrelpub' hostname prefixed. */
-	get id(): string { return this.squirrelpub.id; }
+	id: string | undefined;
 
-	/** List of other Identites which are the same real-life entity. This serves resiliency. */
-	get alias_identities(): string[] | undefined { return this.squirrelpub.alias_identities; }
+	/** The public key for verifying signatures of objects belonging to this identity. */
+	verify_public_key: JsonWebKey | undefined;
 
-	/** If set, then this alias will be fetched by the client and displayed. This serves resiliency. */
-	get primary_alias(): string | undefined { return this.squirrelpub.primary_alias; }
-
-	/** {@link PublicKeyReference} */
-	get public_key(): PublicKeyReference { return this.squirrelpub.public_key; }
-
-	/** Identity types can be 'user', 'server', 'cache' or any combination thereof. */
-	get identity_type(): string { return this.squirrelpub.identity_type; }
+	/** URL to a Squirrelpub 'list' containing past public keys */
+	past_verify_public_keys: string | undefined;
 
 	/** The timestamp when this Identity was created. */
-	get created_timestamp(): string { return this.squirrelpub.created_timestamp; }
+	created_timestamp: string | undefined;
 
-	/** {@link IdentityProfile} */
-	get profile(): IdentityProfile { return this.squirrelpub.profile; }
+	/** List of other Identites which are the same real-life entity. This serves resiliency. */
+	alias_identities: string[] | undefined;
+
+	/** If set, then this alias will be fetched by the client and displayed. This serves resiliency. */
+	primary_alias: string | undefined;
+	
+	/** Identity types can be 'user', 'server', 'cache' or any combination thereof. */
+	identity_type: string | undefined;
+
+	/** The profile describes the information which is to be displayed on a profile page. */
+	profile: IdentityProfile | undefined;
 
 	/** URL of this Identities Stream. {@link Stream} */
-	get stream(): string | undefined { return this.squirrelpub.stream; }
+	stream: string | undefined;
 	
 	/**
-	 * {@link Stream}
-	 * 
 	 * Backup Streams in case the main one goes down.
 	 * This serves resiliency.
 	 */
-	get stream_replications(): string[] | undefined { return this.squirrelpub.stream_replications; }
-
+	stream_replications: string[] | undefined;
+	
 	/**
-	 * {@link SocialGraph}
-	 * 
 	 * If omitted this Identity can not have authenticated followers or follow any other Identity.
 	 * If you follow such an Identity, it will never know about you following it.
 	 */
-	get social_graph(): SocialGraph | undefined { return this.squirrelpub.social_graph; }
-
+	social_graph: SocialGraph | undefined;
+	
 	/**
 	 * URL to a StreamRegistry hosted by this Identity.
 	 * A StreamRegistry hosts Streams for other Identities.
 	 */
-	get stream_registry(): string | undefined { return this.squirrelpub.stream_registry; }
-
+	stream_registry: string | undefined;
+	
 	/**
 	 * URL to a FederationRegistry hosted by this Identity.
 	 * A FederationRegistry hosts endpoints to search for content across the entire network.
 	 */
-	get federation_registry(): string | undefined { return this.squirrelpub.federation_registry; }
-
+	federation_registry: string | undefined;
+	
 	/**
 	 * URL to a CachingService hosted by this Identity.
 	 * A CachingService hosts endpoints to fetch content from.
 	 */
-	get caching_service(): string | undefined { return this.squirrelpub.caching_service; }
-
+	caching_service: string | undefined;
+	
 	/**
 	 * A list of Squirrelpub IDs which this Identity knows to exist.
 	 * Acts as a 'seed' for automatic federation & discovery.
 	 */
-	get federation_anchors(): string[] { return this.squirrelpub.federation_anchors ? this.squirrelpub.federation_anchors : [];  }
+	federation_anchors: string[] | undefined;
 
+	/**
+	 * Create a new Identity from the fetched & parsed JSON object.
+	 */
+	constructor(raw_object: object) {
+		Object.assign(this, raw_object);
+		if(this.squirrelpub?.type !== "identity") throw new Error(`Wrong or invalid Squirrelpub type: ${this.squirrelpub?.type}`);
+	}
+
+	/**
+	 * Create a new Identity from {@link SquirrelpubPayload}
+	 */
+	static async fromPayload(payload: SquirrelpubPayload): Promise<Identity> {
+		const ret = new Identity(JSON.parse(payload.payload));
+
+		/*ret.squirrelpub._original_url = payload.original_url;
+		ret.squirrelpub._signature_resolved = payload.signature;
+		if(ret.verify_public_key) {
+			ret.squirrelpub._verified = await payload.verify(await importKey(ret.verify_public_key));
+		}*/
+		return ret;
+	}
+
+	/**
+	 * Has the object been succesfully parsed. Does not mean it is a valid Squirrelpub object.
+	 */
+	get success(): boolean { return !!this.squirrelpub?.type && !(/^\s*$/).test(this.squirrelpub.type); }
+
+	/**
+	 * Squirrelpub object type
+	 */
+	get squirrelpub_type(): string { return this.squirrelpub?.type; }
 	
 
 	/** Optional display name for this Identity */
-	get name(): string | undefined { return this.profile?.name; }
+	get display_name(): string { return this.profile?.name ? this.profile.name : `${this.id}`; }
 
 	/** Pretty print the type of this Identity */
 	get display_identity_type(): string { return this.identity_type && this.identity_type.length > 1 ? this.identity_type[0].toUpperCase() + this.identity_type.slice(1) : ""; }
 
 	/** Pretty print the name and ID of this Identity */
-	get display_id(): string { return `${this.name} (${this.id})`; }
+	get display_name_id(): string { return this.profile?.name ? `${this.profile?.name} (${this.id})` : `${this.id}`; }
 
 	/** Pretty print the type, name and ID of this Identity */
-	get display(): string { return `${this.display_identity_type}: ${this.display_id}`; }
+	get display_full(): string { return this.display_identity_type ? `${this.display_identity_type}: ${this.display_name_id}` : this.display_name_id; }
 }
 
 /**
@@ -198,6 +208,6 @@ export function constructIdentityURL(id: string): URL {
  * @returns {Promise<Identity>} The squirrelpub identity if found
  */
 export async function fetchIdentity(id: string): Promise<Identity> {
-	const url = constructIdentityURL(id);
-	return new Identity(await fetch(url).then(response => response.json()), url.toString());
+	const payload = await SquirrelpubPayload.fetch(constructIdentityURL(id));
+	return Identity.fromPayload(payload);
 }

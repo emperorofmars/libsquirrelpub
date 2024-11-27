@@ -1,55 +1,80 @@
+import { importKey } from "../util/Crypto.mts";
+import type { Identity } from "./Identity.mts";
 import { Message } from './Message.mts';
-import { SquirrelpubBase } from './SquirrelpubBase.mts';
+import type { SquirrelpubMeta, SquirrelpubBase } from './SquirrelpubBase.mts';
+import { SquirrelpubPayload } from "./SquirrelpubPayload.mts";
 
 /**
  * Squirrelpub Stream. Represents a history of Messages
  */
-export class Stream extends SquirrelpubBase {
+export class Stream implements SquirrelpubBase {
 	/**
-	 * Create a new Stream from the fetched & parsed JSON object.
-	 * 
-	 * @param {any} raw_squirrelpub_object - Parsed JSON
-	 * @param {string} original_url - The URL this object was fetched from
-	 * 
-	 */// deno-lint-ignore no-explicit-any
-	constructor(raw_squirrelpub_object: any, original_url: string) {
-		super(raw_squirrelpub_object, original_url);
-		if(this.type != "stream") throw new Error("Squirrelpub object is not a Stream!");
-
-		// TODO implement json schema validation
-	}
-
-	/** Optional display-name for this Stream. */
-	get stream_name(): string | undefined { return this.squirrelpub.stream_name; }
+	 * The Squirrelpub object contains the squirrelpub type, version and optional URL to retrieve the signature of the original payload, if not present in the http header.
+	 */
+	squirrelpub!: SquirrelpubMeta;
 	
+	/** Optional display-name for this Stream. */
+	stream_name: string | undefined;
+
 	/** The ID of the latest Message which is part of the main history. */
-	get latest(): number { return this.squirrelpub.latest; }
+	latest!: number;
 
 	/** The first part of an URL to retrieve a Message. */
-	get url_base(): string  { return this.squirrelpub.url_base; }
+	url_base!: string;
 
 	/** The last part of an URL to retrieve a Message. */
-	get url_suffix(): string { return this.squirrelpub.url_suffix ? this.squirrelpub.url_suffix : ""; }
+	url_suffix: string | undefined;
 
 	/** Squirrelpub ID of the Identity which owns this Stream */
-	get owner_id(): string { return this.squirrelpub.owner_id; }
-
+	owner_id!: string;
+	
 	/**
 	 * URL endpoint to which a server may subscribe to updates from this Stream.
 	 * This endpoint doesn't have to exist.
 	 * In that case use periodic polling instead.
 	 */
-	get subscribe(): string | boolean | undefined { return this.squirrelpub.subscribe; }
-
+	subscribe: string | boolean | undefined;
+	
 	/** The minimum intervall this Stream can be polled. */
-	get min_poll_interval(): number { return this.squirrelpub.min_poll_interval; }
-
+	min_poll_interval: number | undefined;
+	
 	/** Streams which replicate this one. */
-	get replications(): string[] { return this.squirrelpub.replications ? this.squirrelpub.replications : []; }
+	replications: string[] | undefined;
 
+	/**
+	 * Create a new Stream from the fetched & parsed JSON object.
+	 */
+	constructor(raw_object: object) {
+		Object.assign(this, raw_object);
+		if(this.squirrelpub?.type !== "stream") throw new Error(`Wrong or invalid Squirrelpub type: ${this.squirrelpub?.type}`);
+	}
+
+	/**
+	 * Create a new Stream from {@link SquirrelpubPayload}
+	 */
+	static async fromPayload(payload: SquirrelpubPayload, identity: Identity | undefined = undefined): Promise<Stream> {
+		const ret = new Stream(JSON.parse(payload.payload));
+
+		/*ret.squirrelpub._original_url = payload.original_url;
+		ret.squirrelpub._signature_resolved = payload.signature;
+		if(identity?.verify_public_key) {
+			ret.squirrelpub._verified = await payload.verify(await importKey(identity.verify_public_key));
+		}*/
+		return ret;
+	}
+
+	/**
+	 * Has the object been succesfully parsed. Does not mean it is a valid Squirrelpub object.
+	 */
+	get success(): boolean { return !!this.squirrelpub?.type && !(/^\s*$/).test(this.squirrelpub.type); }
+
+	/**
+	 * Squirrelpub object type
+	 */
+	get squirrelpub_type(): string { return this.squirrelpub?.type; }
 
 	/** The approximate number of messages in the main history of this Stream. */
-	get len_approximate(): number { return this.squirrelpub.latest ? this.squirrelpub.latest + 1 : 0; }
+	get len_approximate(): number { return this.latest ? this.latest + 1 : 0; }
 
 	/**
 	 * Construct an URL from which a Message based on its ID can be fetched.
@@ -62,14 +87,13 @@ export class Stream extends SquirrelpubBase {
 	}
 }
 
-
 /**
  * Fetch a Squirrelpub Stream
  * 
  * @throws If the fetch failed
  */
 export async function fetchStream(url: string): Promise<Stream> {
-	return new Stream(await fetch(url).then(response => response.json()), url);
+	return Stream.fromPayload(await SquirrelpubPayload.fetch(url));
 }
 
 
@@ -87,7 +111,7 @@ export async function fetchPage(stream: Stream, page: number, page_size: number 
 		const index = stream.latest - (page * page_size + i);
 		if(index < 0) break;
 		const url = stream.constructMessageUrl(index);
-		const response = await fetch(url).then(response => response.json()).then(json => new Message(json, url)).catch(null);
+		const response = await fetch(url).then(response => response.json()).then(json => new Message(json)).catch(null);
 		if(response) ret.push(response);
 	}
 	return ret;

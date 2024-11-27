@@ -1,7 +1,7 @@
 {
 	"squirrelpub": {
 		"type": "list",
-		"list_type": "subscribers"
+		"version": "0.0.5"
 	},
-	"signature": ""
+	"list_type": "subscribers"
 }

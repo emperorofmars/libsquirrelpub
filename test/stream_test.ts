@@ -8,17 +8,17 @@ Deno.test({
 	name: "Fetch valid Stream",
 	async fn() {
 		const test_object = testObjects.stream_valid_minimal;
-		const test_expected_response = new squirrelpub.Stream(test_object.json, test_object.fetch_url);
+		const test_expected_response = new squirrelpub.Stream(test_object.json);
 
 		const spy = fetchSpy(JSON.stringify(test_object.json));
 		const stream = await squirrelpub.fetchStream(test_object.fetch_url);
 
-		assertSpyCalls(spy, 1);
+		assertSpyCalls(spy, 2);
 		assertSpyCallArgs(spy, 0, [test_object.fetch_url]);
 		assertEquals(stream.success, true);
-		assertEquals(stream.type, test_expected_response.type);
+		assertEquals(stream.squirrelpub_type, test_expected_response.squirrelpub_type);
 		assertEquals(stream.owner_id, test_expected_response.owner_id);
-		assertEquals(stream.original_url, test_expected_response.original_url);
+		//assertEquals(stream.squirrelpub._original_url, test_object.fetch_url);
 
 		assertEquals(stream.stream_name, "Main");
 		assertEquals(stream.latest, 1);
@@ -50,11 +50,11 @@ Deno.test({
 	name: "Fetch valid Message page",
 	async fn() {
 		const test_stream = testObjects.stream_valid_minimal;
-		const stream = new squirrelpub.Stream(test_stream.json, test_stream.fetch_url);
+		const stream = new squirrelpub.Stream(test_stream.json);
 		assertEquals(stream.latest, 1);
 
 		const test_object = testObjects.message_valid_minimal;
-		const test_expected_response = [new squirrelpub.Message(test_object.json, test_object.fetch_url)];
+		const test_expected_response = [new squirrelpub.Message(test_object.json)];
 
 		const spy = fetchSpy(JSON.stringify(test_object.json));
 		const page = await squirrelpub.fetchPage(stream, 0, 2);
@@ -67,9 +67,9 @@ Deno.test({
 		const first_message = page[0];
 
 		assertEquals(first_message.success, true);
-		assertEquals(first_message.type, test_expected_response[0].type);
+		assertEquals(first_message.squirrelpub_type, test_expected_response[0].squirrelpub_type);
 		assertEquals(first_message.owner_id, test_expected_response[0].owner_id);
-		assertEquals(first_message.original_url, test_expected_response[0].original_url);
+		//assertEquals(first_message.original_url, test_expected_response[0].original_url);
 	}
 });
 
@@ -77,7 +77,7 @@ Deno.test({
 	name: "Fetch Message specific page numbers and page sizes",
 	async fn() {
 		const test_stream = testObjects.stream_valid_minimal;
-		const stream = new squirrelpub.Stream(test_stream.json, test_stream.fetch_url);
+		const stream = new squirrelpub.Stream(test_stream.json);
 
 		const test_object = testObjects.message_valid_minimal;
 

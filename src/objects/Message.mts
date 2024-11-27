@@ -1,41 +1,68 @@
+import type { Identity } from "../libsquirrelpub.mts";
+import { importKey } from "../util/Crypto.mts";
 import type { Post } from './Post.mts';
-import { SquirrelpubBase } from './SquirrelpubBase.mts';
+import type { SquirrelpubMeta, SquirrelpubBase } from './SquirrelpubBase.mts';
+import type { SquirrelpubPayload } from "./SquirrelpubPayload.mts";
 
 /**
  * A Squirrelpub Message.
  * 
  * It can describe a Post (like 'microblog') or a Command (like 'delete').
  */
-export class Message extends SquirrelpubBase {
+export class Message implements SquirrelpubBase {
 	/**
-	 * Create a new Message from the fetched & parsed JSON object.
-	 * 
-	 * @param {any} raw_squirrelpub_object - Parsed JSON
-	 * @param {string} original_url - The URL this object was fetched from
-	 */// deno-lint-ignore no-explicit-any
-	constructor(raw_squirrelpub_object: any, original_url: string) {
-		super(raw_squirrelpub_object, original_url);
-		if(this.type != "message") throw new Error("Squirrelpub object is not a Message!");
+	 * The squirrelpub object contains the squirrelpub type, version and optional URL to retrieve the signature of the original payload, if not present in the http header.
+	 */
+	squirrelpub!: SquirrelpubMeta;
 
-		// TODO implement json schema validation
-	}
-	
 	/** Types can be: 'post', 'command' */
-	get message_type(): string { return this.squirrelpub.message_type; }
-	
+	message_type!: string;
+
 	/** Message ID, used in constructing the url in the Stream to access this Message. */
-	get id(): number | string { return this.squirrelpub.id; }
+	id!: number | string;
 
 	/** Squirrelpub ID of the owner Identity. */
-	get owner_id(): string { return this.squirrelpub.owner_id; }
+	owner_id!: string;
 	
 	/** Date and time of the creation of this message as ISOString. */
-	get timestamp(): string { return this.squirrelpub.timestamp; }
+	timestamp!: string;
 	
 	/** The stream this Message is part of. */
-	get stream(): string { return this.squirrelpub.stream; }
+	stream!: string;
 	
 	/** If the message_type is 'post', get the Post. */
-	get post(): Post { return this.squirrelpub.post; }
+	post: Post | undefined;
+
+	/**
+	 * Create a new Message from the fetched & parsed JSON object.
+	 */
+	constructor(raw_object: object) {
+		Object.assign(this, raw_object);
+		if(this.squirrelpub?.type !== "message") throw new Error(`Wrong or invalid Squirrelpub type: ${this.squirrelpub?.type}`);
+	}
+
+	/**
+	 * Create a new Message from {@link SquirrelpubPayload}
+	 */
+	static async fromPayload(payload: SquirrelpubPayload, identity: Identity | undefined = undefined): Promise<Message> {
+		const ret = new Message(JSON.parse(payload.payload));
+
+		/*ret.squirrelpub._original_url = payload.original_url;
+		ret.squirrelpub._signature_resolved = payload.signature;
+		if(identity?.verify_public_key) {
+			ret.squirrelpub._verified = await payload.verify(await importKey(identity.verify_public_key));
+		}*/
+		return ret;
+	}
+
+	/**
+	 * Has the object been succesfully parsed. Does not mean it is a valid Squirrelpub object.
+	 */
+	get success(): boolean { return !!this.squirrelpub?.type && !(/^\s*$/).test(this.squirrelpub.type); }
+
+	/**
+	 * Squirrelpub object type
+	 */
+	get squirrelpub_type(): string { return this.squirrelpub?.type; }
 }
 

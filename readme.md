@@ -29,10 +29,13 @@ The response will be the Squirrelpub identity object.
 		"identity_type": "user",
 		"id": "example.squirrelpub.com",
 		"public_key": {
-			"type": "ed25519",
-			"key": "THE CRYPTOGRAPHIC KEY",
-			"url": "Or alternatively a link to the key. Only one can be present."
+			"kty": "OKP",
+			"crv": "Ed25519",
+			"x": "2zedMdcc904ZEoelhu5QFR1euYrEXegDF5F7Mwj49HY",
+			"key_ops": [ "verify" ],
+			"ext": true
 		},
+		"past_public_keys": "https://example.squirrelpub.com/.squirrelpub/past_public_keys",
 		"alias_identities": ["john.somwhereelse.pub"],
 		"primary_alias": "example.squirrelpub.com",
 		"created_timestamp": "2024-11-06T02:56:19.767Z",

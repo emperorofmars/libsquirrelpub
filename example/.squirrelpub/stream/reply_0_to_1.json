@@ -1,19 +1,19 @@
 {
 	"squirrelpub": {
 		"type": "message",
-		"message_type": "post",
-		"id": 1,
-		"owner_id": "john.doe.example.com",
-		"timestamp": "2024-11-06T02:56:19.767Z",
-		"stream": "https://example.github.io/squirrelpub_example/streams/test",
-		"post": {
-			"type": "microblog",
-			"parent": "https://example.github.io/squirrelpub_example/streams/test/1.json",
-			"content": {
-				"type": "text/markdown",
-				"content": "Hello World!"
-			}
-		}
+		"version": "0.0.5"
 	},
-	"signature": ""
+	"message_type": "post",
+	"id": 1,
+	"owner_id": "john.doe.example.com",
+	"timestamp": "2024-11-06T02:56:19.767Z",
+	"stream": "https://example.github.io/squirrelpub_example/streams/test",
+	"post": {
+		"type": "microblog",
+		"parent": "https://example.github.io/squirrelpub_example/streams/test/1.json",
+		"content": {
+			"type": "text/markdown",
+			"content": "Hello World!"
+		}
+	}
 }

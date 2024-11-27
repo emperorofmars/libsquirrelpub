@@ -1,16 +1,16 @@
 {
 	"squirrelpub": {
 		"type": "stream",
-		"stream_name": "Main",
-		"url_base": "https://example.github.io/squirrelpub_example/streams/test/",
-		"latest": 1,
-		"url_suffix": ".json",
-		"owner_id": "john.doe.example.com",
-		"subscribe": false,
-		"min_poll_interval": 600000,
-		"replications": [
-			"https://backup.somewhere.else.com/atsomepath"
-		]
+		"version": "0.0.5"
 	},
-	"signature": ""
+	"stream_name": "Main",
+	"url_base": "https://example.github.io/squirrelpub_example/streams/test/",
+	"latest": 1,
+	"url_suffix": ".json",
+	"owner_id": "john.doe.example.com",
+	"subscribe": false,
+	"min_poll_interval": 600000,
+	"replications": [
+		"https://backup.somewhere.else.com/atsomepath"
+	]
 }

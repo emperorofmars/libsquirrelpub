@@ -1,6 +1,6 @@
 {
 	"squirrelpub": {
-		"type": "cache_service"
-	},
-	"signature": ""
+		"type": "cache_service",
+		"version": "0.0.5"
+	}
 }

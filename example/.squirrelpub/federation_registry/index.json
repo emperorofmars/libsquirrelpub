@@ -1,6 +1,6 @@
 {
 	"squirrelpub": {
-		"type": "federation_registry"
-	},
-	"signature": ""
+		"type": "federation_registry",
+		"version": "0.0.5"
+	}
 }
