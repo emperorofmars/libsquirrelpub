@@ -1,6 +1,7 @@
 {
 	"squirrelpub": {
 		"type": "identity",
+		"identity_type": "user",
 		"id": "john.doe.example.com",
 		"public_key": {
 			"type": "ed25519",

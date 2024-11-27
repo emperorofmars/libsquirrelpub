@@ -8,9 +8,9 @@ import { SquirrelpubBase } from './SquirrelpubBase.mts';
 /**
  * A link with a displayname. To be displayed in an Identity profile.
  */
-export class NamedLink {
-	name!: string;
-	url!: string;
+export interface NamedLink {
+	name: string;
+	url: string;
 }
 
 /**
@@ -21,16 +21,10 @@ export class NamedLink {
  * 
  * This is somewhat inspired by Blueskys tagging system, except here a user can set them themselves.
  */
-export class ProfileTag {
+export interface ProfileTag {
 	type: string;
 	name: string | undefined;
 	value: string | undefined;
-	
-	constructor(options: { type: string; name: string | undefined; value: string | undefined; }) {
-		this.type = options.type;
-		this.name = options.name;
-		this.value = options.value;
-	}
 }
 
 /**
@@ -38,29 +32,22 @@ export class ProfileTag {
  * 
  * It describes the values needed to build a profile similar to how social media sites work.
  */
-export class IdentityProfile {
+export interface IdentityProfile {
 	name: string | undefined;
 	description: Content | undefined;
 	links: NamedLink[] | undefined;
 	tags: ProfileTag[] | undefined;
-	
-	constructor(options: { name: string | undefined; description: Content | undefined; links: NamedLink[] | undefined; tags: ProfileTag[] | undefined; }) {
-		this.name = options.name;
-		this.description = options.description;
-		this.links = options.links;
-		this.tags = options.tags;
-	}
 }
 
 /**
  * Defines the relationships to other Identities.
  */
-export class SocialGraph {
-	subscribed!: {
+export interface SocialGraph {
+	subscribed: {
 		len: number;
 		url: string;
 	};
-	subscribers!: {
+	subscribers: {
 		len: number;
 		url: string;
 	};
@@ -69,9 +56,9 @@ export class SocialGraph {
 /**
  * Defines the location of the public key of an Identity.
  */
-export class PublicKeyReference {
+export interface PublicKeyReference {
 	/** Key type, like id_rsa or ed25519 */
-	type!: string;
+	type: string;
 	/** The key can be directly embebbed */
 	key: string | undefined;
 	/** The key can be linked */
@@ -163,7 +150,7 @@ export class Identity extends SquirrelpubBase {
 	get name(): string | undefined { return this.profile?.name; }
 
 	/** Pretty print the type of this Identity */
-	get display_identity_type(): string { return this.identity_type[0].toUpperCase() + this.identity_type.slice(1); }
+	get display_identity_type(): string { return this.identity_type && this.identity_type.length > 1 ? this.identity_type[0].toUpperCase() + this.identity_type.slice(1) : ""; }
 
 	/** Pretty print the name and ID of this Identity */
 	get display_id(): string { return `${this.name} (${this.id})`; }
@@ -184,7 +171,8 @@ export class Identity extends SquirrelpubBase {
  * @throws If the id is an invalid hostname
  */
 export function constructIdentityURL(id: string): URL {
-	if(!id.includes(".")) throw new Error("A Squirrelpub ID must be a valid domain! For example: 'example.com'");
+	if(!id.includes(".") || id.startsWith(".") || id.endsWith(".") || id.includes("..") || (/^\s*$/).test(id))
+		throw new Error("A Squirrelpub ID must be a valid domain! For example: 'example.com'");
 
 	const squirrelpubHost = "squirrelpub." + id;
 	const url = new URL("https://" + squirrelpubHost + "/.squirrelpub/identity");
