@@ -37,33 +37,33 @@ Deno.test({
 Deno.test({
 	name: "Fetch valid Identity",
 	async fn() {
-		const tested_identity = testObjects.identity_valid_minimal;
-		const test_expected_response = new squirrelpub.Identity(tested_identity.json, tested_identity.fetch_url);
+		const test_object = testObjects.identity_valid_minimal;
+		const test_expected_response = new squirrelpub.Identity(test_object.json, test_object.fetch_url);
 
-		const spy = fetchSpy(JSON.stringify(tested_identity.json));
-		const identity = await squirrelpub.fetchIdentity(tested_identity.id);
+		const spy = fetchSpy(JSON.stringify(test_object.json));
+		const identity = await squirrelpub.fetchIdentity(test_object.id);
 
 		assertSpyCalls(spy, 1);
-		assertSpyCallArgs(spy, 0, [new URL(tested_identity.fetch_url)]);
+		assertSpyCallArgs(spy, 0, [new URL(test_object.fetch_url)]);
 		assertEquals(identity.success, true);
 		assertEquals(identity.type, test_expected_response.type);
-		assertEquals(identity.id, tested_identity.id);
-		assertEquals(identity.squirrelpub.original_url, test_expected_response.squirrelpub.original_url);
+		assertEquals(identity.id, test_object.id);
+		assertEquals(identity.original_url, test_expected_response.original_url);
 	}
 });
 
 Deno.test({
 	name: "Fetch valid Identity with fetch recejt",
 	fn() {
-		const tested_identity = testObjects.identity_valid_minimal;
+		const test_object = testObjects.identity_valid_minimal;
 
-		const spy = fetchRejectSpy(JSON.stringify(tested_identity.json));
+		const spy = fetchRejectSpy(JSON.stringify(test_object.json));
 		assertRejects(async () => {
-			await squirrelpub.fetchIdentity(tested_identity.id);
+			await squirrelpub.fetchIdentity(test_object.id);
 		});
 
 		assertSpyCalls(spy, 1);
-		assertSpyCallArgs(spy, 0, [new URL(tested_identity.fetch_url)]);
+		assertSpyCallArgs(spy, 0, [new URL(test_object.fetch_url)]);
 	}
 });
 
@@ -86,9 +86,9 @@ Deno.test({
 Deno.test({
 	name: "Construct Identity from invalid JSON",
 	fn() {
-		const tested_identity = testObjects.identity_invalid_minimal;
+		const test_object = testObjects.identity_invalid_minimal;
 		assertThrows(() => {
-			new squirrelpub.Identity(tested_identity.json, tested_identity.fetch_url);
+			new squirrelpub.Identity(test_object.json, test_object.fetch_url);
 		});
 	}
 });
@@ -96,24 +96,24 @@ Deno.test({
 Deno.test({
 	name: "Check full example Identity",
 	async fn() {
-		const tested_identity = testObjects.identity_valid_full;
-		const test_expected_response = new squirrelpub.Identity(tested_identity.json, tested_identity.fetch_url);
+		const test_object = testObjects.identity_valid_full;
+		const test_expected_response = new squirrelpub.Identity(test_object.json, test_object.fetch_url);
 
-		const spy = fetchSpy(JSON.stringify(tested_identity.json));
-		const identity = await squirrelpub.fetchIdentity(tested_identity.id);
+		const spy = fetchSpy(JSON.stringify(test_object.json));
+		const identity = await squirrelpub.fetchIdentity(test_object.id);
 		
 		assertSpyCalls(spy, 1);
-		assertSpyCallArgs(spy, 0, [new URL(tested_identity.fetch_url)]);
+		assertSpyCallArgs(spy, 0, [new URL(test_object.fetch_url)]);
 
 		assertEquals(identity.success, true);
 		assertEquals(identity.type, test_expected_response.type);
-		assertEquals(identity.id, tested_identity.id);
-		assertEquals(identity.squirrelpub.original_url, test_expected_response.squirrelpub.original_url);
+		assertEquals(identity.id, test_object.id);
+		assertEquals(identity.original_url, test_expected_response.original_url);
 
 		assertExists(identity.public_key);
 
 		assertEquals(identity.alias_identities, ["john.somwhereelse.pub"]);
-		assertEquals(identity.primary_alias, tested_identity.id);
+		assertEquals(identity.primary_alias, test_object.id);
 
 		assertExists(identity.profile);
 		assertEquals(identity.name, "John Doe");
@@ -147,14 +147,5 @@ Deno.test({
 		assertExists(identity.federation_registry);
 		assertExists(identity.caching_service);
 		assertExists(identity.federation_anchors);
-	}
-});
-
-Deno.test({
-	name: "Check Identity helper objects",
-	fn() {
-		const namedLink: NamedLink = {name: "a", url: "b"};
-		assertEquals(namedLink.name, "a");
-		assertEquals(namedLink.url, "b");
 	}
 });

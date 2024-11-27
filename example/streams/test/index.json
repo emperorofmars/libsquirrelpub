@@ -1,8 +1,8 @@
 {
 	"squirrelpub": {
-		"type": "message",
+		"type": "stream",
 		"stream_name": "Main",
-		"url_base": "https://example.github.io/squirrelpub_example/streams/test",
+		"url_base": "https://example.github.io/squirrelpub_example/streams/test/",
 		"latest": 1,
 		"url_suffix": ".json",
 		"owner_id": "john.doe.example.com",

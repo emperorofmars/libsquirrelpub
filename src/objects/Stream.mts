@@ -60,7 +60,7 @@ export class Stream extends SquirrelpubBase {
 	 * @returns {string} - URL string to fetch the Message from
 	 */
 	constructMessageUrl(id: number | string): string {
-		return `${this.url_base}/${id}${this.url_suffix}`;
+		return `${this.url_base}${id}${this.url_suffix}`;
 	}
 }
 
@@ -79,6 +79,8 @@ export async function fetchStream(url: string): Promise<Stream> {
  * Fetch a set of Messages from a Squirrelpub Stream
  * 
  * @throws If the fetch failed
+ * 
+ * @todo Use a fork-join if the stream is statically hosted, otherwise devise a more legit API.
  */
 export async function fetchPage(stream: Stream, page: number, page_size: number = 10): Promise<Message[]> {
 	const ret = [];
@@ -86,9 +88,11 @@ export async function fetchPage(stream: Stream, page: number, page_size: number 
 	{
 		const index = stream.latest - (page * page_size + i);
 		if(index < 0) break;
-		const url = stream.constructMessageUrl(index);// .url + "/" + index + ".json";
-		const message = new Message(await fetch(url).then(response => response.json()), url);
-		ret.push(message);
+		const url = stream.constructMessageUrl(index);
+		const response = await fetch(url).then(response => response.json()).then(json => new Message(json, url)).catch(null);
+		if(response) ret.push(response);
+		/*const message = new Message(await fetch(url).then(response => response.json()).catch(return null), url);
+		ret.push(message);*/
 	}
 	return ret;
 }
