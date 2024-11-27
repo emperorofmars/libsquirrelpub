@@ -19,3 +19,15 @@ export function fetchCallbackSpy(fn: (resolve: (value: Response | PromiseLike<Re
 	globalThis.fetch = ret;
 	return ret;
 }
+
+// deno-lint-ignore no-explicit-any
+export function fetchSequenceSpy<T>(sequence: any[]) {
+	let index = 0;
+	// deno-lint-ignore no-explicit-any
+	const spyFn = (resolve: (value: Response | PromiseLike<Response>) => void, _reject: (reason?: any) => void)  => {
+		if(index < sequence.length) resolve(new Response(sequence[index]));
+		else resolve(new Response("null"));
+		index++;
+	}
+	return fetchCallbackSpy(spyFn);
+}

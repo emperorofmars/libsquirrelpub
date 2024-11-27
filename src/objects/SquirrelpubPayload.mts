@@ -1,5 +1,10 @@
 import { verifyString } from "../util/Crypto.mts";
 
+/**
+ * Fetches and represents a raw squirrelpub object, and tries to verify its signature.
+ * 
+ * Specific Squirrelpub objects can be constructed from this.
+ */
 export class SquirrelpubPayload {
 
 	/** The raw fetched JSON text, ready to be validated against its signature. */

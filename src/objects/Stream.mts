@@ -55,11 +55,11 @@ export class Stream implements SquirrelpubBase {
 	static async fromPayload(payload: SquirrelpubPayload, identity: Identity | undefined = undefined): Promise<Stream> {
 		const ret = new Stream(JSON.parse(payload.payload));
 
-		/*ret.squirrelpub._original_url = payload.original_url;
-		ret.squirrelpub._signature_resolved = payload.signature;
-		if(identity?.verify_public_key) {
-			ret.squirrelpub._verified = await payload.verify(await importKey(identity.verify_public_key));
-		}*/
+		let verified = false;
+		if(identity && identity.verify_public_key) {
+			verified = await payload.verify(await importKey(identity.verify_public_key))
+		}
+		ret.squirrelpub._request_meta = () => {return {original_url: payload.original_url, signature_resolved: payload.signature, verified: verified};};
 		return ret;
 	}
 

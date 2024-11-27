@@ -1,7 +1,7 @@
 import { assertEquals, assertExists, assertGreater, assertRejects, assertThrows } from "@std/assert";
 import { assertSpyCalls, assertSpyCallArgs } from "@std/testing/mock";
 import * as squirrelpub from "../src/libsquirrelpub.mts";
-import { fetchRejectSpy, fetchSpy } from "./utils.ts";
+import { fetchRejectSpy, fetchSequenceSpy, fetchSpy } from "./utils.ts";
 import * as testObjects from "./objects.ts";
 
 Deno.test({
@@ -39,7 +39,7 @@ Deno.test({
 		const test_object = testObjects.identity_valid_minimal;
 		const test_expected_response = new squirrelpub.Identity(test_object.json);
 
-		const spy = fetchSpy(JSON.stringify(test_object.json));
+		const spy = fetchSequenceSpy([JSON.stringify(test_object.json), "jPXN6s3YE1Faki7aCquo/KzMHx3wQ50KiEzLwRKstN2BQCWXuZPCTKsujj2XOYfXQcQp1Buw1gmdIiNbbJIXDQ=="]);
 		const identity = await squirrelpub.fetchIdentity(test_object.id);
 
 		console.log(JSON.parse(JSON.stringify(identity)));
@@ -52,13 +52,12 @@ Deno.test({
 		//assertEquals(identity.squirrelpub._original_url, test_object.fetch_url);
 	}
 });
-
 Deno.test({
 	name: "Fetch valid Identity with fetch recejt",
 	fn() {
 		const test_object = testObjects.identity_valid_minimal;
 
-		const spy = fetchRejectSpy(JSON.stringify(test_object.json));
+		const spy = fetchRejectSpy("test");
 		assertRejects(async () => {
 			await squirrelpub.fetchIdentity(test_object.id);
 		});
@@ -100,7 +99,7 @@ Deno.test({
 		const test_object = testObjects.identity_valid_full;
 		const test_expected_response = new squirrelpub.Identity(test_object.json);
 
-		const spy = fetchSpy(JSON.stringify(test_object.json));
+		const spy = fetchSequenceSpy([JSON.stringify(test_object.json), "jPXN6s3YE1Faki7aCquo/KzMHx3wQ50KiEzLwRKstN2BQCWXuZPCTKsujj2XOYfXQcQp1Buw1gmdIiNbbJIXDQ=="]);
 		const identity = await squirrelpub.fetchIdentity(test_object.id);
 		
 		assertSpyCalls(spy, 2);
@@ -150,6 +149,7 @@ Deno.test({
 		assertExists(identity.federation_anchors);
 	}
 });
+
 /*
 Deno.test({
 	name: "Verify Identity",

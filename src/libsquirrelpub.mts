@@ -6,7 +6,7 @@
  * import squirrelpub from "@squirrelpub/libsquirrelpub";
  * 
  * const identity = await squirrelpub.fetchIdentity("example.com");
- * console.log(identity.name);
+ * console.log(identity.display_name_id);
  * ```
  * 
  * Example on how to fetch an Identities 'Stream', and then the latest 10 messages from the Stream:

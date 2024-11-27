@@ -1,6 +1,6 @@
 import { SquirrelpubPayload } from "../src/objects/SquirrelpubPayload.mts";
 import * as testObjects from "./objects.ts";
-import { fetchCallbackSpy } from "./utils.ts";
+import { fetchSequenceSpy } from "./utils.ts";
 import { assertSpyCallArgs, assertSpyCalls } from "@std/testing/mock";
 import { assertEquals } from "@std/assert/equals";
 import { importKey } from "../src/util/Crypto.mts";
@@ -10,15 +10,7 @@ Deno.test({
 	async fn() {
 		const test_object = testObjects.identity_valid_minimal;
 
-		/** @todo actually create legit signature */
-		
-		let spyCount = 0;
-		const spyFn = (resolve: (value: Response | PromiseLike<Response>) => void) => {
-			if(spyCount == 0) resolve(new Response(JSON.stringify(test_object.json)));
-			else resolve(new Response("jPXN6s3YE1Faki7aCquo/KzMHx3wQ50KiEzLwRKstN2BQCWXuZPCTKsujj2XOYfXQcQp1Buw1gmdIiNbbJIXDQ=="))
-			spyCount++;
-		}
-		const spy = fetchCallbackSpy(spyFn);
+		const spy = fetchSequenceSpy([JSON.stringify(test_object.json), "jPXN6s3YE1Faki7aCquo/KzMHx3wQ50KiEzLwRKstN2BQCWXuZPCTKsujj2XOYfXQcQp1Buw1gmdIiNbbJIXDQ=="]);
 		const payload = await SquirrelpubPayload.fetch(test_object.fetch_url);
 
 		console.log(payload);

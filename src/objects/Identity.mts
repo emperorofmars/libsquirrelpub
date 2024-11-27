@@ -144,11 +144,11 @@ export class Identity implements SquirrelpubBase {
 	static async fromPayload(payload: SquirrelpubPayload): Promise<Identity> {
 		const ret = new Identity(JSON.parse(payload.payload));
 
-		/*ret.squirrelpub._original_url = payload.original_url;
-		ret.squirrelpub._signature_resolved = payload.signature;
+		let verified = false;
 		if(ret.verify_public_key) {
-			ret.squirrelpub._verified = await payload.verify(await importKey(ret.verify_public_key));
-		}*/
+			verified = await payload.verify(await importKey(ret.verify_public_key))
+		}
+		ret.squirrelpub._request_meta = () => {return {original_url: payload.original_url, signature_resolved: payload.signature, verified: verified};};
 		return ret;
 	}
 
@@ -161,7 +161,6 @@ export class Identity implements SquirrelpubBase {
 	 * Squirrelpub object type
 	 */
 	get squirrelpub_type(): string { return this.squirrelpub?.type; }
-	
 
 	/** Optional display name for this Identity */
 	get display_name(): string { return this.profile?.name ? this.profile.name : `${this.id}`; }
