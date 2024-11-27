@@ -23,3 +23,5 @@ export * from './objects/Identity.mts';
 export * from './objects/Stream.mts';
 export * from './objects/Message.mts';
 export * from './objects/Post.mts';
+
+export * from './builders/IdentityBuilder.mts';
