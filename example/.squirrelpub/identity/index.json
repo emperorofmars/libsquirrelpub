@@ -10,6 +10,7 @@
 		},
 		"alias_identities": ["john.somwhereelse.pub"],
 		"primary_alias": "john.doe.example.com",
+		"created_timestamp": "2024-11-06T02:56:19.767Z",
 		"profile": {
 			"name": "John Doe",
 			"description": {

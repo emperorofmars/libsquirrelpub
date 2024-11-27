@@ -106,6 +106,9 @@ export class Identity extends SquirrelpubBase {
 	/** Identity types can be 'user', 'server', 'cache' or any combination thereof. */
 	get identity_type(): string { return this.squirrelpub.identity_type; }
 
+	/** The timestamp when this Identity was created. */
+	get created_timestamp(): string { return this.squirrelpub.created_timestamp; }
+
 	/** {@link IdentityProfile} */
 	get profile(): IdentityProfile { return this.squirrelpub.profile; }
 
