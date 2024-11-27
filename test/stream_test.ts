@@ -1,6 +1,6 @@
 import { assertEquals, assertExists, assertRejects } from "@std/assert";
 import { assertSpyCalls, assertSpyCallArgs } from "@std/testing/mock";
-import squirrelpub from "../src/libsquirrelpub.mts";
+import * as squirrelpub from "../src/libsquirrelpub.mts";
 import { fetchSpy } from "./utils.ts";
 import * as testObjects from "./objects.ts";
 

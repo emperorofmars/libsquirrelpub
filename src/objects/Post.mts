@@ -1,13 +1,9 @@
-/**
- * @memberof module:Squirrelpub
- */
-
 import type { Content } from "./JsonObjects.mts";
 
 /**
  * Squirrelpub Post.
  */
-export class Post {
+export interface Post {
 	/**
 	 * Types are arbitrary, but common ones include: 'microblog', 'imagepost', 'article', 'thread'
 	 */
@@ -18,12 +14,10 @@ export class Post {
 	 */
 	parent: string | undefined;
 
+	/**
+	 * The content of the post
+	 * 
+	 * @link Content
+	 */
 	content: Content | undefined;
-	
-	constructor(options: { type: string; parent: string | undefined; content: Content | undefined; })
-	{
-		this.type = options.type;
-		this.parent = options.parent;
-		this.content = options.content;
-	}
 }

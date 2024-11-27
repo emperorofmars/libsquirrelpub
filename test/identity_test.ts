@@ -1,9 +1,8 @@
 import { assertEquals, assertExists, assertGreater, assertRejects, assertThrows } from "@std/assert";
 import { assertSpyCalls, assertSpyCallArgs } from "@std/testing/mock";
-import squirrelpub from "../src/libsquirrelpub.mts";
+import * as squirrelpub from "../src/libsquirrelpub.mts";
 import { fetchRejectSpy, fetchSpy } from "./utils.ts";
 import * as testObjects from "./objects.ts";
-import type { IdentityProfile, NamedLink, ProfileTag } from "../src/prelude.mts";
 
 Deno.test({
 	name: "Construct valid Identity IDs",
@@ -120,20 +119,20 @@ Deno.test({
 		assertEquals(identity.display_id, "John Doe (john.doe.example.com)");
 		assertEquals(identity.display, "User: John Doe (john.doe.example.com)");
 
-		const profile: IdentityProfile = identity.profile as IdentityProfile;
+		const profile: squirrelpub.IdentityProfile = identity.profile as squirrelpub.IdentityProfile;
 		assertExists(profile.description);
 		assertEquals(profile.description.type, "text/markdown");
 		assertExists(profile.description.content);
 		assertExists(profile.links);
 		assertGreater(profile.links.length, 0);
 
-		const link: NamedLink = profile.links[0] as NamedLink;
+		const link: squirrelpub.NamedLink = profile.links[0] as squirrelpub.NamedLink;
 		assertGreater(link.name.length, 0);
 		assertGreater(link.url.length, 0);
 
 		assertExists(profile.tags);
 		assertGreater(profile.tags.length, 0)
-		const tag: ProfileTag = profile.tags[0] as ProfileTag;
+		const tag: squirrelpub.ProfileTag = profile.tags[0] as squirrelpub.ProfileTag;
 		assertGreater(tag.type.length, 0);
 		assertGreater(tag.name?.length, 0);
 		assertGreater(tag.value?.length, 0);

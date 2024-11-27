@@ -1,8 +1,4 @@
 /**
- * @memberof module:Squirrelpub
- */
-
-/**
  * Describes the content of something to be displayed, like a post, or a profile description.
  */
 export interface Content {

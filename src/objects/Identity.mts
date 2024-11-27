@@ -1,7 +1,3 @@
-/**
- * @memberof module:Squirrelpub
- */
-
 import type { Content } from "./JsonObjects.mts";
 import { SquirrelpubBase } from './SquirrelpubBase.mts';
 
@@ -9,7 +5,9 @@ import { SquirrelpubBase } from './SquirrelpubBase.mts';
  * A link with a displayname. To be displayed in an Identity profile.
  */
 export interface NamedLink {
+	/** Display name */
 	name: string;
+	/** URL */
 	url: string;
 }
 
@@ -22,8 +20,11 @@ export interface NamedLink {
  * This is somewhat inspired by Blueskys tagging system, except here a user can set them themselves.
  */
 export interface ProfileTag {
+	/** Namespaced type. For example: `com.squirrelpub.fursona_species` */
 	type: string;
+	/** Name for this tag. Could be `Species`. Will serve as the fallback for rendereing in the client if the `type` is not understood. */
 	name: string | undefined;
+	/** The content of the tag. Could be `Red Squirrel`. */
 	value: string | undefined;
 }
 
@@ -33,9 +34,13 @@ export interface ProfileTag {
  * It describes the values needed to build a profile similar to how social media sites work.
  */
 export interface IdentityProfile {
+	/** An Identities choosen display name. */
 	name: string | undefined;
+	/** Profile description. */
 	description: Content | undefined;
+	/** List of links to be displayed on this Identities profile page. */
 	links: NamedLink[] | undefined;
+	/** List of tags to be displayed on this Identities profile page. */
 	tags: ProfileTag[] | undefined;
 }
 
@@ -43,10 +48,12 @@ export interface IdentityProfile {
  * Defines the relationships to other Identities.
  */
 export interface SocialGraph {
+	/** Number of Identities this one is subscribed to and an URL to the location to fetch the list of subscribed Identities from. */
 	subscribed: {
 		len: number;
 		url: string;
 	};
+	/** Number of Identities that subscribed to this one and an URL to the location to fetch the list of subscribers from. */
 	subscribers: {
 		len: number;
 		url: string;
@@ -72,10 +79,11 @@ export interface PublicKeyReference {
  */
 export class Identity extends SquirrelpubBase {
 	/**
+	 * Create a new Identity from the fetched & parsed JSON object.
+	 * 
 	 * @param {any} raw_squirrelpub_object - Parsed JSON
 	 * @param {string} original_url - The URL this object was fetched from
-	 */
-	// deno-lint-ignore no-explicit-any
+	 */// deno-lint-ignore no-explicit-any
 	constructor(raw_squirrelpub_object: any, original_url: string) {
 		super(raw_squirrelpub_object, original_url);
 		if(this.type != "identity") throw new Error("Squirrelpub object is not an Identity!");

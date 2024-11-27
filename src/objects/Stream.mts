@@ -1,7 +1,3 @@
-/**
- * @memberof module:Squirrelpub
- */
-
 import { Message } from './Message.mts';
 import { SquirrelpubBase } from './SquirrelpubBase.mts';
 
@@ -10,10 +6,12 @@ import { SquirrelpubBase } from './SquirrelpubBase.mts';
  */
 export class Stream extends SquirrelpubBase {
 	/**
+	 * Create a new Stream from the fetched & parsed JSON object.
+	 * 
 	 * @param {any} raw_squirrelpub_object - Parsed JSON
 	 * @param {string} original_url - The URL this object was fetched from
-	 */
-	// deno-lint-ignore no-explicit-any
+	 * 
+	 */// deno-lint-ignore no-explicit-any
 	constructor(raw_squirrelpub_object: any, original_url: string) {
 		super(raw_squirrelpub_object, original_url);
 		if(this.type != "stream") throw new Error("Squirrelpub object is not a Stream!");

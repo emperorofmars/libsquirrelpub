@@ -1,13 +1,7 @@
-// @ts-check
-
-/**
- * @memberof module:Squirrelpub
- */
-
 /**
  * The base Squirrelpub object.
  */
-export class SquirrelpubBase {
+export abstract class SquirrelpubBase {
 	/**
 	 * Squirrelpub object. Its JSON representation is what is to be signed.
 	 */
@@ -25,6 +19,8 @@ export class SquirrelpubBase {
 	readonly original_url: string;
 
 	/**
+	 * Initialize the SquirrelpubBase object from the fetched & parsed JSON object.
+	 * 
 	 * @param {any} raw_squirrelpub_object - Parsed JSON
 	 * @param {string} original_url - The URL this object was fetched from
 	 */

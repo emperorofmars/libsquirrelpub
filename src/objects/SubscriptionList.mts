@@ -1,3 +1,0 @@
-/**
- * @memberof module:Squirrelpub
- */
