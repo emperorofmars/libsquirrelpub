@@ -26,68 +26,70 @@ The response will be the Squirrelpub identity object.
 {
 	"squirrelpub": {
 		"type": "identity",
-		"identity_type": "user",
-		"id": "example.squirrelpub.com",
-		"public_key": {
-			"kty": "OKP",
-			"crv": "Ed25519",
-			"x": "2zedMdcc904ZEoelhu5QFR1euYrEXegDF5F7Mwj49HY",
-			"key_ops": [ "verify" ],
-			"ext": true
+		"version": "0.0.5",
+		"signature": "https://example.squirrelpub.com/.squirrelpub/identity.verify"
+	},
+	"identity_type": "user",
+	"id": "example.squirrelpub.com",
+	"public_key": {
+		"kty": "OKP",
+		"crv": "Ed25519",
+		"x": "2zedMdcc904ZEoelhu5QFR1euYrEXegDF5F7Mwj49HY",
+		"key_ops": [ "verify" ],
+		"ext": true
+	},
+	"past_verify_public_keys": "https://example.squirrelpub.com/.squirrelpub/past_public_keys",
+	"past_public_keys": "https://example.squirrelpub.com/.squirrelpub/past_public_keys",
+	"alias_identities": ["john.somwhereelse.pub"],
+	"primary_alias": "example.squirrelpub.com",
+	"created_timestamp": "2024-11-06T02:56:19.767Z",
+	"profile": {
+		"name": "Example Squirrelpub Identity",
+		"description": {
+			"type": "text/markdown",
+			"content": "Hi\nI'm an example **Identity** on **Squirrelpub**!"
 		},
-		"past_public_keys": "https://example.squirrelpub.com/.squirrelpub/past_public_keys",
-		"alias_identities": ["john.somwhereelse.pub"],
-		"primary_alias": "example.squirrelpub.com",
-		"created_timestamp": "2024-11-06T02:56:19.767Z",
-		"profile": {
-			"name": "Example Squirrelpub Identity",
-			"description": {
-				"type": "text/markdown",
-				"content": "Hi\nI'm an example **Identity** on **Squirrelpub**!"
-			},
-			"links": [
-				{
-					"name": "GitHub",
-					"url": "https://github.com/emperorofmars/libsquirrelpub"
-				}
-			],
-			"tags": [
-				{
-					"type": "squirrelpub.fluffy",
-					"displayname": "Fluffy",
-					"value": true
-				},
-				{
-					"type": "squirrelpub.fursone_species",
-					"name": "Species",
-					"value": "Squirrel"
-				},
-				{
-					"type": "scom.quirrelpub.pronouns",
-					"name": "Pronouns",
-					"value": "example/test"
-				}
-			]
-		},
-		"stream": "https://example.squirrelpub.com/.squirrelpub/stream/test",
-		"stream_replications": [
-			"https://backup.somewhere.else.com/atsomepath"
+		"links": [
+			{
+				"name": "GitHub",
+				"url": "https://github.com/emperorofmars/libsquirrelpub"
+			}
 		],
-		"social_graph": {
-			"subscribed_stream": "https://example.squirrelpub.com/.squirrelpub/graph/subscribed",
-			"subscribers_stream": "https://example.squirrelpub.com/.squirrelpub/graph/subscribers",
-			"deny_stream": "https://example.squirrelpub.com/.squirrelpub/graph/deny"
-		},
-		"stream_registry": "https://example.squirrelpub.com/.squirrelpub/stream_registry",
-		"federation_registry": "https://example.squirrelpub.com/.squirrelpub/federation_registry",
-		"caching_service": "https://example.squirrelpub.com/.squirrelpub/cache_service",
-		"federation_anchors": [
-			"example.squirrelpub.com",
-			"squirrelpub.com",
-			"example.com"
+		"tags": [
+			{
+				"type": "squirrelpub.fluffy",
+				"displayname": "Fluffy",
+				"value": true
+			},
+			{
+				"type": "squirrelpub.fursone_species",
+				"name": "Species",
+				"value": "Squirrel"
+			},
+			{
+				"type": "scom.quirrelpub.pronouns",
+				"name": "Pronouns",
+				"value": "example/test"
+			}
 		]
 	},
-	"signature": "THE CRYPTOGRAPHIC SIGNATURE"
+	"stream": "https://example.squirrelpub.com/.squirrelpub/stream/test",
+	"stream_replications": [
+		"https://backup.somewhere.else.com/atsomepath"
+	],
+	"social_graph": {
+		"subscribed_stream": "https://example.squirrelpub.com/.squirrelpub/graph/subscribed",
+		"subscribers_stream": "https://example.squirrelpub.com/.squirrelpub/graph/subscribers",
+		"deny_stream": "https://example.squirrelpub.com/.squirrelpub/graph/deny"
+	},
+	"stream_registry": "https://example.squirrelpub.com/.squirrelpub/stream_registry",
+	"federation_registry": "https://example.squirrelpub.com/.squirrelpub/federation_registry",
+	"caching_service": "https://example.squirrelpub.com/.squirrelpub/cache_service",
+	"federation_anchors": [
+		"example.squirrelpub.com",
+		"squirrelpub.com",
+		"example.com"
+	]
 }
 ```
 
