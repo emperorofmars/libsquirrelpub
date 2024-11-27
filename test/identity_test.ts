@@ -111,13 +111,13 @@ Deno.test({
 
 		assertExists(identity.public_key);
 
-		assertEquals(identity.alias_identities, ["john.somwhereelse.pub"]);
+		assertEquals(identity.alias_identities, ["example.somwhereelse.pub"]);
 		assertEquals(identity.primary_alias, test_object.id);
 
 		assertExists(identity.profile);
-		assertEquals(identity.name, "John Doe");
-		assertEquals(identity.display_id, "John Doe (john.doe.example.com)");
-		assertEquals(identity.display, "User: John Doe (john.doe.example.com)");
+		assertEquals(identity.name, "Example Squirrelpub Identity");
+		assertEquals(identity.display_id, "Example Squirrelpub Identity (example.squirrelpub.com)");
+		assertEquals(identity.display, "User: Example Squirrelpub Identity (example.squirrelpub.com)");
 
 		const profile: squirrelpub.IdentityProfile = identity.profile as squirrelpub.IdentityProfile;
 		assertExists(profile.description);
@@ -137,7 +137,7 @@ Deno.test({
 		assertGreater(tag.name?.length, 0);
 		assertGreater(tag.value?.length, 0);
 
-		assertEquals(identity.stream, "https://example.github.io/squirrelpub_example/streams/test");
+		assertEquals(identity.stream, "https://example.squirrelpub.com/.squirrelpub/stream/test");
 		assertExists(identity.stream_replications);
 		
 		assertExists(identity.social_graph);

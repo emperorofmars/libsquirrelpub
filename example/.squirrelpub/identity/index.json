@@ -2,58 +2,50 @@
 	"squirrelpub": {
 		"type": "identity",
 		"identity_type": "user",
-		"id": "john.doe.example.com",
+		"id": "example.squirrelpub.com",
 		"public_key": {
 			"type": "ed25519",
-			"key": "base64 encoded key OR",
-			"url": "OR a link to the key"
+			"key": "THE CRYPTOGRAPHIC KEY",
+			"url": "Or alternatively a link to the key. Only one can be present."
 		},
-		"alias_identities": ["john.somwhereelse.pub"],
-		"primary_alias": "john.doe.example.com",
+		"alias_identities": ["example.somwhereelse.pub"],
+		"primary_alias": "example.squirrelpub.com",
 		"created_timestamp": "2024-11-06T02:56:19.767Z",
 		"profile": {
-			"name": "John Doe",
+			"name": "Example Squirrelpub Identity",
 			"description": {
 				"type": "text/markdown",
-				"content": "Hi, im an example user identity on Squirrelpub!"
+				"content": "Hi\nI'm an example **Identity** on **Squirrelpub**!"
 			},
 			"links": [
 				{
-					"name": "Mastodon",
-					"url": "https://example.com/@somebody"
-				},
-				{
-					"name": "Bluesky",
-					"url": "https://bsky.app/profile/example.com"
-				},
-				{
-					"name": "Somethingelse",
-					"url": "https://someotherlink.example.com"
+					"name": "GitHub",
+					"url": "https://github.com/emperorofmars/libsquirrelpub"
 				}
 			],
 			"tags": [
 				{
-					"type": "squirrelpub.fursone_species",
+					"type": "com.squirrelpub.fursone_species",
 					"name": "Species",
 					"value": "Squirrel"
 				},
 				{
-					"type": "squirrelpub.fluffy",
+					"type": "com.squirrelpub.fluffy",
 					"name": "Fluffy",
 					"value": true
 				},
 				{
-					"type": "squirrelpub.pronouns",
+					"type": "scom.quirrelpub.pronouns",
 					"name": "Pronouns",
 					"value": "she/he/her/him/whateveritsafreetextfield"
 				},
 				{
-					"type": "squirrelpub.occupation",
+					"type": "com.squirrelpub.occupation",
 					"name": "My Jow",
 					"value": "Software Engineer"
 				},
 				{
-					"type": "custom.namespace.for.whatever.example.com",
+					"type": "com.example.custom.namespace.for.whatever",
 					"name": "Fluffy",
 					"value": true
 				},
@@ -67,24 +59,20 @@
 				}
 			]
 		},
-		"stream": "https://example.github.io/squirrelpub_example/streams/test",
+		"stream": "https://example.squirrelpub.com/.squirrelpub/stream/test",
 		"stream_replications": [
 			"https://backup.somewhere.else.com/atsomepath"
 		],
 		"social_graph": {
-			"subscribed": {
-				"len": 23,
-				"url": ""
-			},
-			"subscribers": {
-				"len": 24,
-				"url": ""
-			}
+			"subscribed_stream": "https://example.squirrelpub.com/.squirrelpub/graph/subscribed",
+			"subscribers_stream": "https://example.squirrelpub.com/.squirrelpub/graph/subscribers",
+			"deny_stream": "https://example.squirrelpub.com/.squirrelpub/graph/deny"
 		},
-		"stream_registry": "https://example.github.io/squirrelpub_example/streams",
-		"federation_registry": "https://example.github.io/squirrelpub_example/federation",
-		"caching_service": "https://example.github.io/squirrelpub_example/cache",
+		"stream_registry": "https://example.squirrelpub.com/.squirrelpub/stream_registry",
+		"federation_registry": "https://example.squirrelpub.com/.squirrelpub/federation_registry",
+		"caching_service": "https://example.squirrelpub.com/.squirrelpub/cache_service",
 		"federation_anchors": [
+			"example.squirrelpub.com",
 			"squirrelpub.com",
 			"example.com"
 		]

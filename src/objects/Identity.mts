@@ -48,16 +48,12 @@ export interface IdentityProfile {
  * Defines the relationships to other Identities.
  */
 export interface SocialGraph {
-	/** Number of Identities this one is subscribed to and an URL to the location to fetch the list of subscribed Identities from. */
-	subscribed: {
-		len: number;
-		url: string;
-	};
-	/** Number of Identities that subscribed to this one and an URL to the location to fetch the list of subscribers from. */
-	subscribers: {
-		len: number;
-		url: string;
-	};
+	/** URL to retrieve an object describing Identities this one is subscribed to .*/
+	subscribed: string | undefined;
+	/** URL to retrieve an object describing Identities that subscribed to this one. */
+	subscribers: string | undefined;
+	/** URL to retrieve an object describing Identities that are forbidden from interacting with this one. */
+	deny: string | undefined;
 }
 
 /**

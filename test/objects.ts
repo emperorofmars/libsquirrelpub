@@ -1,33 +1,33 @@
 
 export const identity_valid_minimal = {
-	id: "example.com",
-	fetch_url: "https://squirrelpub.example.com/.squirrelpub/identity",
-	json: {squirrelpub: {type: "identity",id: "example.com"}, signature: ""},
+	id: "example.squirrelpub.com",
+	fetch_url: "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity",
+	json: {squirrelpub: {type: "identity",id: "example.squirrelpub.com"}, signature: ""},
 }
 
 export const identity_invalid_minimal = {
-	id: "example.com",
-	fetch_url: "https://squirrelpub.example.com/.squirrelpub/identity",
+	id: "example.squirrelpub.com",
+	fetch_url: "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity",
 	json: {squirrelpub: {type: "",id: ".com."}, signature: ""}
 }
 
 import identity_valid_full_json from "../example/.squirrelpub/identity/index.json" with { type: "json" }
 export const identity_valid_full = {
-	id: "john.doe.example.com",
-	fetch_url: "https://squirrelpub.john.doe.example.com/.squirrelpub/identity",
+	id: "example.squirrelpub.com",
+	fetch_url: "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity",
 	json: identity_valid_full_json
 }
 
 export const stream_valid_minimal = {
-	fetch_url: "https://example.github.io/squirrelpub_example/streams/test",
+	fetch_url: "https://example.squirrelpub.com/stream",
 	json: {
 		squirrelpub: {
 			type: "stream",
 			stream_name: "Main",
-			url_base: "https://example.github.io/squirrelpub_example/streams/test/",
+			url_base: "https://example.squirrelpub.com/stream/",
 			latest: 1,
 			url_suffix: ".json",
-			owner_id: "john.doe.example.com",
+			owner_id: "example.squirrelpub.com",
 			subscribe: false,
 			min_poll_interval: 600000,
 			replications: [
@@ -39,12 +39,12 @@ export const stream_valid_minimal = {
 }
 
 export const stream_invalid_minimal = {
-	fetch_url: "https://example.github.io/squirrelpub_example/streams/test",
+	fetch_url: "https://example.squirrelpub.com/stream",
 	json: {
 		squirrelpub: {
 			type: "stre",
 			stream_name: "Main",
-			url_base: "https://example.github.io/squirrelpub_example/streams/test/",
+			url_base: "https://example.squirrelpub.com/stream/",
 			latest: 1,
 			url_suffix: ".json",
 			owner_id: "john.doe.example.com",
@@ -59,14 +59,14 @@ export const stream_invalid_minimal = {
 }
 
 export const message_valid_minimal = {
-	fetch_url: "https://example.github.io/squirrelpub_example/streams/test/1.json",
+	fetch_url: "https://example.squirrelpub.com/stream/1.json",
 	json: {
 		squirrelpub: {
 			type: "message",
 			message_type: "post",
 			id: 1,
 			owner_id: "john.doe.example.com",
-			stream: "https://example.github.io/squirrelpub_example/streams/test",
+			stream: "https://example.squirrelpub.com/stream",
 			timestamp: "1732564679",
 			post: {
 				type: "microblog",

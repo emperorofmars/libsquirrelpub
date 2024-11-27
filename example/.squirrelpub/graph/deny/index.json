@@ -1,0 +1,7 @@
+{
+	"squirrelpub": {
+		"type": "graph",
+		"graph_type": "deny"
+	},
+	"signature": ""
+}

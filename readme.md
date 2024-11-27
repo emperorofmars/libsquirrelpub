@@ -27,56 +27,62 @@ The response will be the Squirrelpub identity object.
 	"squirrelpub": {
 		"type": "identity",
 		"identity_type": "user",
-		"id": "john.doe.example.com",
+		"id": "example.squirrelpub.com",
 		"public_key": {
 			"type": "ed25519",
 			"key": "THE CRYPTOGRAPHIC KEY",
 			"url": "Or alternatively a link to the key. Only one can be present."
 		},
 		"alias_identities": ["john.somwhereelse.pub"],
+		"primary_alias": "example.squirrelpub.com",
+		"created_timestamp": "2024-11-06T02:56:19.767Z",
 		"profile": {
-			"name": "John Doe",
+			"name": "Example Squirrelpub Identity",
 			"description": {
-				"content-type": "text/markdown",
-				"content": "Hi, im an example user identity on Squirrelpub!"
+				"type": "text/markdown",
+				"content": "Hi\nI'm an example **Identity** on **Squirrelpub**!"
 			},
-			"links": {
+			"links": [
 				{
-					"name": "Mastodon",
-					"url": "https://example.com/@somebody"
-				},
-				{
-					"name": "Bluesky",
-					"url": "https://bsky.app/profile/example.com"
+					"name": "GitHub",
+					"url": "https://github.com/emperorofmars/libsquirrelpub"
 				}
-			},
+			],
 			"tags": [
 				{
 					"type": "squirrelpub.fluffy",
 					"displayname": "Fluffy",
 					"value": true
+				},
+				{
+					"type": "squirrelpub.fursone_species",
+					"name": "Species",
+					"value": "Squirrel"
+				},
+				{
+					"type": "scom.quirrelpub.pronouns",
+					"name": "Pronouns",
+					"value": "example/test"
 				}
 			]
 		},
-		"streams": [
-			{
-				"url": "https://example.github.io/squirrelpub_example/streams/test",
-				"active_alias": "john.doe.example.com",
-				"replications": [
-					"https://backup.somewhere.else.com/atsomepath"
-				]
-			}
+		"stream": "https://example.squirrelpub.com/.squirrelpub/stream/test",
+		"stream_replications": [
+			"https://backup.somewhere.else.com/atsomepath"
 		],
 		"social_graph": {
-			"subscribed": {
-				"len": 23,
-				"url": "https://squirrelpub.john.doe.example.com/.squirrelpub/subscribed"
-			},
-			"subscribers": {
-				"len": 24,
-				"url": "https://squirrelpub.john.doe.example.com/.squirrelpub/subscribers"
-			}
-		}
+			"subscribed_stream": "https://example.squirrelpub.com/.squirrelpub/graph/subscribed",
+			"subscribers_stream": "https://example.squirrelpub.com/.squirrelpub/graph/subscribers",
+			"deny_stream": "https://example.squirrelpub.com/.squirrelpub/graph/deny"
+		},
+		"stream_registry": "https://example.squirrelpub.com/.squirrelpub/stream_registry",
+		"federation_registry": "https://example.squirrelpub.com/.squirrelpub/federation_registry",
+		"caching_service": "https://example.squirrelpub.com/.squirrelpub/cache_service",
+		"federation_anchors": [
+			"example.squirrelpub.com",
+			"squirrelpub.com",
+			"example.com"
+		]
 	},
 	"signature": "THE CRYPTOGRAPHIC SIGNATURE"
 }
