@@ -4,7 +4,7 @@
 		"message_type": "post",
 		"id": 1,
 		"owner_id": "john.doe.example.com",
-		"timestamp": "1732564679",
+		"timestamp": "2024-11-06T02:56:19.767Z",
 		"stream": "https://example.github.io/squirrelpub_example/streams/test",
 		"post": {
 			"type": "microblog",

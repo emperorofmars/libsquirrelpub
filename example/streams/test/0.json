@@ -5,7 +5,7 @@
 		"id": 0,
 		"owner_id": "john.doe.example.com",
 		"stream": "https://example.github.io/squirrelpub_example/streams/test",
-		"timestamp": "1732562679",
+		"timestamp": "2024-10-23T02:56:19.767Z",
 		"post": {
 			"type": "microblog",
 			"parent": null,

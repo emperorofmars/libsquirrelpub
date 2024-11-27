@@ -5,7 +5,7 @@
 		"id": "command_0",
 		"owner_id": "john.doe.example.com",
 		"stream": "https://example.github.io/squirrelpub_example/streams/test",
-		"timestamp": "1732564979",
+		"timestamp": "2024-11-09T02:56:19.767Z",
 		"target_id": "2"
 	},
 	"signature": ""
