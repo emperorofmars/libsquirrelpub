@@ -1,6 +1,6 @@
 {
 	"name": "@squirrelpub/libsquirrelpub",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"exports": "./src/libsquirrelpub.mts",
 	"tasks": {
 		"dev": "deno --allow-net test --watch",

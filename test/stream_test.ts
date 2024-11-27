@@ -1,9 +1,8 @@
-import { assertEquals, assertExists, assertGreater, assertRejects, assertThrows } from "@std/assert";
-import { assertSpyCalls, assertSpyCallArgs, spy } from "@std/testing/mock";
+import { assertEquals, assertExists, assertRejects } from "@std/assert";
+import { assertSpyCalls, assertSpyCallArgs } from "@std/testing/mock";
 import squirrelpub from "../src/libsquirrelpub.mts";
-import { fetchCallbackSpy, fetchRejectSpy, fetchSpy } from "./utils.ts";
+import { fetchSpy } from "./utils.ts";
 import * as testObjects from "./objects.ts";
-import type { IdentityProfile, NamedLink, ProfileTag } from "../src/prelude.mts";
 
 Deno.test({
 	name: "Fetch valid Stream",

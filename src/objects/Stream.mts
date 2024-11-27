@@ -91,8 +91,6 @@ export async function fetchPage(stream: Stream, page: number, page_size: number 
 		const url = stream.constructMessageUrl(index);
 		const response = await fetch(url).then(response => response.json()).then(json => new Message(json, url)).catch(null);
 		if(response) ret.push(response);
-		/*const message = new Message(await fetch(url).then(response => response.json()).catch(return null), url);
-		ret.push(message);*/
 	}
 	return ret;
 }
