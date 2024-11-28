@@ -1,4 +1,3 @@
-import { importKey } from "../util/Crypto.mts";
 import type { Identity } from "./Identity.mts";
 import { Message } from './Message.mts';
 import type { SquirrelpubMeta, SquirrelpubBase } from './SquirrelpubBase.mts';
@@ -60,13 +59,8 @@ export class Stream implements SquirrelpubBase {
 	static async fromPayload(payload: SquirrelpubPayload, identity: Identity | undefined = undefined): Promise<Stream> {
 		const ret = new Stream(JSON.parse(payload.payload));
 
-		let verified = false;
-		let imported_public_key = undefined;
-		if(identity && identity.verify_public_key) {
-			imported_public_key = await importKey(identity.verify_public_key);
-			verified = await payload.verify(imported_public_key)
-		}
-		ret.squirrelpub._request_meta = () => {return {original_url: payload.original_url, signature_resolved: payload.signature, verified: verified, imported_public_key: imported_public_key};};
+		const verified = identity ? await payload.verify_from_identity(identity) : false;
+		ret.squirrelpub._request_meta = () => {return {original_url: payload.original_url, signature_resolved: payload.signature, verified: verified, imported_public_key: undefined};};
 		return ret;
 	}
 
