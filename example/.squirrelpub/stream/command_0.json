@@ -1,11 +1,11 @@
 {
 	"squirrelpub": {
 		"type": "message",
-		"version": "0.0.5"
+		"version": "0.0.6"
 	},
 	"message_type": "delete",
 	"id": "command_0",
-	"owner_id": "john.doe.example.com",
+	"owner_id": "example.squirrelpub.com",
 	"stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/stream",
 	"timestamp": "2024-11-09T02:56:19.767Z",
 	"target_id": "2"

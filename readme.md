@@ -27,7 +27,7 @@ The response will be the Squirrelpub identity object.
 	"squirrelpub": {
 		"type": "identity",
 		"version": "0.0.5",
-		"signature": "https://example.squirrelpub.com/.squirrelpub/identity.verify"
+		"signature": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity/verify.txt"
 	},
 	"identity_type": "user",
 	"id": "example.squirrelpub.com",
@@ -73,7 +73,7 @@ The response will be the Squirrelpub identity object.
 			}
 		]
 	},
-	"stream": "https://example.squirrelpub.com/.squirrelpub/stream/test",
+	"stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/stream",
 	"stream_replications": [
 		"https://backup.somewhere.else.com/atsomepath"
 	],

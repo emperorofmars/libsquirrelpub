@@ -1,8 +1,8 @@
 {
 	"squirrelpub": {
 		"type": "identity",
-		"version": "0.0.5",
-		"signature": "https://example.squirrelpub.com/.squirrelpub/identity.verify"
+		"version": "0.0.6",
+		"signature": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity/verify.txt"
 	},
 	"id": "example.squirrelpub.com",
 	"verify_public_key": {
@@ -14,7 +14,7 @@
 		],
 		"ext": true
 	},
-	"past_verify_public_keys": "https://example.squirrelpub.com/.squirrelpub/past_public_keys",
+	"past_verify_public_keys": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity/past_public_keys.json",
 	"created_timestamp": "2024-11-06T02:56:19.767Z",
 	"alias_identities": [
 		"example.somwhereelse.pub"
@@ -74,13 +74,13 @@
 		"https://backup.somewhere.else.com/atsomepath"
 	],
 	"social_graph": {
-		"subscribed_stream": "https://example.squirrelpub.com/.squirrelpub/graph/subscribed",
-		"subscribers_stream": "https://example.squirrelpub.com/.squirrelpub/graph/subscribers",
-		"deny_stream": "https://example.squirrelpub.com/.squirrelpub/graph/deny"
+		"subscribed_stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity/graph/subscribed",
+		"subscribers_stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity/graph/subscribers",
+		"deny_stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity/graph/deny"
 	},
-	"stream_registry": "https://example.squirrelpub.com/.squirrelpub/stream_registry",
-	"federation_registry": "https://example.squirrelpub.com/.squirrelpub/federation_registry",
-	"caching_service": "https://example.squirrelpub.com/.squirrelpub/cache_service",
+	"stream_registry": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/stream_registry",
+	"federation_registry": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/federation_registry",
+	"caching_service": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/cache_service",
 	"federation_anchors": [
 		"example.squirrelpub.com",
 		"squirrelpub.com",

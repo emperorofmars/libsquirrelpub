@@ -1,13 +1,13 @@
 {
 	"squirrelpub": {
 		"type": "stream",
-		"version": "0.0.5"
+		"version": "0.0.6"
 	},
 	"stream_name": "Main",
 	"url_base": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/stream/",
 	"latest": 1,
 	"url_suffix": ".json",
-	"owner_id": "john.doe.example.com",
+	"owner_id": "example.squirrelpub.com",
 	"subscribe": false,
 	"min_poll_interval": 600000,
 	"replications": [
