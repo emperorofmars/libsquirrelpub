@@ -27,14 +27,18 @@ export class SquirrelpubPayload {
 	 * 
 	 * @throws If the fetch failed
 	 */
-	static async fetch(url: URL | string): Promise<SquirrelpubPayload> {
+	static async fetch(url: URL | string, verify_url: URL | string | undefined = undefined): Promise<SquirrelpubPayload> {
 		const response = await fetch(url);
 		let signature = response.headers.get("SQUIRRELPUB_SIGNATURE");
-		if(!signature) signature = await fetch(url.toString() + ".verify").then(response => response.text()).catch(null);
+		if(!signature) {
+			if(verify_url) signature = await fetch(verify_url).then(response => response.text()).catch(null);
+			else signature = await fetch(url + "/verify.txt").then(response => response.text()).catch(null);
+		}
 		return new SquirrelpubPayload(await response.text(), url.toString(), signature ? signature : undefined);
 	}
 
-	async verify(public_key: CryptoKey): Promise<boolean> {
-		return this.signature ? await verifyString(this.payload, public_key, this.signature) : false;
+	async verify(public_key: CryptoKey, signature: string | undefined = undefined): Promise<boolean> {
+		const used_dignature = signature ? signature : this.signature;
+		return used_dignature ? await verifyString(this.payload, public_key, used_dignature) : false;
 	}
 }
