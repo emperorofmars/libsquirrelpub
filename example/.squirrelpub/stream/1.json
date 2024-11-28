@@ -14,6 +14,10 @@
 		"content": {
 			"type": "text/markdown",
 			"content": "Hello World!"
+		},
+		"attachment": {
+			"type": "image/webp",
+			"url": "https://somwhere.com/cdn/s8dz7g9fg7tr834guz"
 		}
 	}
 }

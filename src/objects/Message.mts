@@ -14,6 +14,11 @@ export class Message implements SquirrelpubBase {
 	 * The squirrelpub object contains the squirrelpub type, version and optional URL to retrieve the signature of the original payload, if not present in the http header.
 	 */
 	squirrelpub!: SquirrelpubMeta;
+	
+	/**
+	 * Support custom properties. Squirrelpub is extensible
+	 */ // deno-lint-ignore no-explicit-any
+	[key: string]: any;
 
 	/** Types can be: 'post', 'command' */
 	message_type!: string;

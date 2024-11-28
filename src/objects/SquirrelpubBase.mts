@@ -27,6 +27,11 @@ export interface SquirrelpubBase {
 	 * The Squirrelpub object contains the squirrelpub type, version and optional URL to retrieve the signature of the original payload, if not present in the http header.
 	 */
 	squirrelpub: SquirrelpubMeta;
+	
+	/**
+	 * Support custom properties. Squirrelpub is extensible
+	 */ // deno-lint-ignore no-explicit-any
+	[key: string]: any;
 
 	/**
 	 * Has the object been succesfully parsed. Does not mean it is a valid Squirrelpub object.

@@ -7,3 +7,13 @@ export interface Content {
 	/** The actual content in the format specified in `type`. */
 	content: string;
 }
+
+/**
+ * Represents an attachment like an image or video.
+ */
+export interface Attachment {
+	/** The content-type. For example 'image/webp'. */
+	type: string;
+	/** URL to fetch the object. */
+	url: string;
+}

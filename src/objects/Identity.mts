@@ -50,7 +50,7 @@ export interface IdentityProfile {
  * Defines the relationships to other Identities.
  */
 export interface SocialGraph {
-	/** URL to retrieve an object describing Identities this one is subscribed to .*/
+	/** URL to retrieve an object describing Identities this one is subscribed to. */
 	subscribed: string | undefined;
 	/** URL to retrieve an object describing Identities that subscribed to this one. */
 	subscribers: string | undefined;
@@ -66,6 +66,11 @@ export class Identity implements SquirrelpubBase {
 	 * The Squirrelpub object contains the squirrelpub type, version and optional URL to retrieve the signature of the original payload, if not present in the http header.
 	 */
 	squirrelpub!: SquirrelpubMeta;
+	
+	/**
+	 * Support custom properties. Squirrelpub is extensible
+	 */ // deno-lint-ignore no-explicit-any
+	[key: string]: any;
 
 	/** Domain without the 'squirrelpub' hostname prefixed. */
 	id: string | undefined;

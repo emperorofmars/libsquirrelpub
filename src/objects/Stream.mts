@@ -13,6 +13,11 @@ export class Stream implements SquirrelpubBase {
 	 */
 	squirrelpub!: SquirrelpubMeta;
 	
+	/**
+	 * Support custom properties. Squirrelpub is extensible
+	 */ // deno-lint-ignore no-explicit-any
+	[key: string]: any;
+	
 	/** Optional display-name for this Stream. */
 	stream_name: string | undefined;
 
