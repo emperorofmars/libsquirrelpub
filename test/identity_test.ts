@@ -139,7 +139,7 @@ Deno.test({
 		assertEquals(identity.stream, "https://squirrelpub.example.squirrelpub.com/.squirrelpub/stream");
 		assertExists(identity.stream_replications);
 		
-		assertExists(identity.social_graph);
+		assertExists(identity.relationship_graph);
 		
 		assertExists(identity.stream_registry);
 		assertExists(identity.federation_registry);

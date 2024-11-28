@@ -4,7 +4,8 @@
 	"exports": "./src/libsquirrelpub.mts",
 	"tasks": {
 		"dev": "deno --allow-net test --watch",
-		"bundle": "deno --allow-read --allow-write --allow-env --allow-net --allow-run bundle.ts"
+		"bundle": "deno --allow-read --allow-write --allow-env --allow-net --allow-run bundle.ts",
+		"test": "deno test --allow-read --clean --coverage; deno coverage coverage"
 	},
 	"license": "MPL-2.0",
 	"imports": {

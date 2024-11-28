@@ -26,7 +26,17 @@ export function fetchSequenceSpy<T>(sequence: any[]) {
 	// deno-lint-ignore no-explicit-any
 	const spyFn = (resolve: (value: Response | PromiseLike<Response>) => void, _reject: (reason?: any) => void)  => {
 		if(index < sequence.length) resolve(new Response(sequence[index]));
-		else resolve(new Response("null"));
+		else resolve(Response.error());
+		index++;
+	}
+	return fetchCallbackSpy(spyFn);
+}
+export function fetchResponseSequenceSpy<T>(sequence: Response[]) {
+	let index = 0;
+	// deno-lint-ignore no-explicit-any
+	const spyFn = (resolve: (value: Response | PromiseLike<Response>) => void, _reject: (reason?: any) => void)  => {
+		if(index < sequence.length) resolve(sequence[index]);
+		else resolve(Response.error());
 		index++;
 	}
 	return fetchCallbackSpy(spyFn);

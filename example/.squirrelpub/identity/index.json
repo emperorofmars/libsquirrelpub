@@ -25,7 +25,7 @@
 		"name": "Example Squirrelpub Identity",
 		"description": {
 			"type": "text/markdown",
-			"content": "Hi\nI'm an example **Identity** on **Squirrelpub**!"
+			"content": "Hi\nI'm an example **Identity** on **Squirrelpub**!\n\nPlease notice that my **private key** with which all of my objects are signed is public and contained in the `libsquirrelpub` GIT repository!"
 		},
 		"links": [
 			{
@@ -51,7 +51,7 @@
 			},
 			{
 				"type": "com.squirrelpub.occupation",
-				"name": "My Jow",
+				"name": "My Job",
 				"value": "Software Engineer"
 			},
 			{
@@ -73,7 +73,7 @@
 	"stream_replications": [
 		"https://backup.somewhere.else.com/atsomepath"
 	],
-	"social_graph": {
+	"relationship_graph": {
 		"subscribed_stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity/graph/subscribed",
 		"subscribers_stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity/graph/subscribers",
 		"deny_stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity/graph/deny"

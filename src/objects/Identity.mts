@@ -1,5 +1,5 @@
 import { importKey } from "../util/Crypto.mts";
-import type { Content } from "./JsonObjects.mts";
+import type { Attachment, Content } from "./JsonObjects.mts";
 import type { SquirrelpubMeta, SquirrelpubBase } from './SquirrelpubBase.mts';
 import { SquirrelpubPayload } from "./SquirrelpubPayload.mts";
 
@@ -44,12 +44,16 @@ export interface IdentityProfile {
 	links: NamedLink[] | undefined;
 	/** List of tags to be displayed on this Identities profile page. */
 	tags: ProfileTag[] | undefined;
+	/** Profile Icon image. */
+	icon: Attachment | undefined;
+	/** Profile header image. */
+	header: Attachment | undefined;
 }
 
 /**
  * Defines the relationships to other Identities.
  */
-export interface SocialGraph {
+export interface RelationshipGraph {
 	/** URL to retrieve an object describing Identities this one is subscribed to. */
 	subscribed: string | undefined;
 	/** URL to retrieve an object describing Identities that subscribed to this one. */
@@ -109,7 +113,7 @@ export class Identity implements SquirrelpubBase {
 	 * If omitted this Identity can not have authenticated followers or follow any other Identity.
 	 * If you follow such an Identity, it will never know about you following it.
 	 */
-	social_graph: SocialGraph | undefined;
+	relationship_graph: RelationshipGraph | undefined;
 	
 	/**
 	 * URL to a StreamRegistry hosted by this Identity.
