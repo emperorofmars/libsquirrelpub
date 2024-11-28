@@ -6,7 +6,7 @@
 	"message_type": "delete",
 	"id": "command_0",
 	"owner_id": "john.doe.example.com",
-	"stream": "https://example.github.io/squirrelpub_example/streams/test",
+	"stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/stream",
 	"timestamp": "2024-11-09T02:56:19.767Z",
 	"target_id": "2"
 }

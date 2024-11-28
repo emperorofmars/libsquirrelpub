@@ -6,7 +6,7 @@
 	"message_type": "post",
 	"id": 0,
 	"owner_id": "john.doe.example.com",
-	"stream": "https://example.github.io/squirrelpub_example/streams/test",
+	"stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/stream",
 	"timestamp": "2024-10-23T02:56:19.767Z",
 	"post": {
 		"type": "microblog",

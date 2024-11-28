@@ -7,10 +7,10 @@
 	"id": 1,
 	"owner_id": "john.doe.example.com",
 	"timestamp": "2024-11-06T02:56:19.767Z",
-	"stream": "https://example.github.io/squirrelpub_example/streams/test",
+	"stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/stream",
 	"post": {
 		"type": "microblog",
-		"parent": "https://example.github.io/squirrelpub_example/streams/test/1.json",
+		"parent": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/stream/1.json",
 		"content": {
 			"type": "text/markdown",
 			"content": "Hello World!"
