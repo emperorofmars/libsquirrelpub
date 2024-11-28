@@ -136,7 +136,7 @@ Deno.test({
 		assertGreater(tag.name?.length, 0);
 		assertGreater(tag.value?.length, 0);
 
-		assertEquals(identity.stream, "https://example.squirrelpub.com/.squirrelpub/stream/test");
+		assertEquals(identity.stream, "https://squirrelpub.example.squirrelpub.com/.squirrelpub/stream");
 		assertExists(identity.stream_replications);
 		
 		assertExists(identity.social_graph);
@@ -147,21 +147,3 @@ Deno.test({
 		assertExists(identity.federation_anchors);
 	}
 });
-
-/*
-Deno.test({
-	name: "Verify Identity",
-	async fn() {
-		const test_object = testObjects.identity_valid_full;
-		const identity = new squirrelpub.Identity(test_object.json);
-
-		const result = await verify(identity.verify_public_key as JsonWebKey);
-		
-		console.log(identity.verify_public_key);
-		console.log(identity.signature);
-		console.log(result);
-
-		assertEquals(result, true);
-	}
-});
-*/
