@@ -81,15 +81,15 @@ export const message_valid_minimal = {
 export const test_identity_public_key = {
 	kty: "OKP",
 	crv: "Ed25519",
-	x: "CDngu4mHq5J1fgYbw2gUWQGUAEe4CaapZfeqoAtF2Bg",
+	x: "THvD7wsl82IY9hB0w3R6AGTWUfshDyC5LVWGLZrRpnE",
 	key_ops: [ "verify" ],
 	ext: true
 }
 export const test_identity_private_key = {
 	kty: "OKP",
 	crv: "Ed25519",
-	x: "CDngu4mHq5J1fgYbw2gUWQGUAEe4CaapZfeqoAtF2Bg",
+	x: "THvD7wsl82IY9hB0w3R6AGTWUfshDyC5LVWGLZrRpnE",
 	key_ops: [ "sign" ],
 	ext: true,
-	d: "fyr0V6jwpuK8oA8FbgWkDLUsWlXItDc5oxStCTZ5xRA"
+	d: "xjI6qs141P6-5CZg0710AYXwVU3mTzLD8aY_Uylgzww"
 }

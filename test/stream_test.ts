@@ -18,7 +18,7 @@ Deno.test({
 		assertEquals(stream.success, true);
 		assertEquals(stream.squirrelpub_type, test_expected_response.squirrelpub_type);
 		assertEquals(stream.owner_id, test_expected_response.owner_id);
-		//assertEquals(stream.squirrelpub._original_url, test_object.fetch_url);
+		assertEquals(stream.squirrelpub._request_meta().original_url, test_object.fetch_url);
 
 		assertEquals(stream.stream_name, "Main");
 		assertEquals(stream.latest, 1);
@@ -69,7 +69,7 @@ Deno.test({
 		assertEquals(first_message.success, true);
 		assertEquals(first_message.squirrelpub_type, test_expected_response[0].squirrelpub_type);
 		assertEquals(first_message.owner_id, test_expected_response[0].owner_id);
-		//assertEquals(first_message.original_url, test_expected_response[0].original_url);
+		//assertEquals(first_message.squirrelpub._request_meta().original_url, stream.constructMessageUrl(0));
 	}
 });
 

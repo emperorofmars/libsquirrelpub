@@ -28,11 +28,18 @@ export class SquirrelpubPayload {
 	 * @throws If the fetch failed
 	 */
 	static async fetch(url: URL | string, verify_url: URL | string | undefined = undefined): Promise<SquirrelpubPayload> {
-		const response = await fetch(url);
+		let response = await fetch(url);
+		if(!response.ok) {
+			await response.body?.cancel();
+			response = await fetch(url.toString() + (url.toString().endsWith("/") ? "" : "/") + "index.json");
+		}
+		if(!response.ok) {
+			throw new Error("Could not fetch Squirrelpub object!");
+		}
 		let signature = response.headers.get("SQUIRRELPUB_SIGNATURE");
 		if(!signature) {
 			if(verify_url) signature = await fetch(verify_url).then(response => response.text()).catch(null);
-			else signature = await fetch(url + "/verify.txt").then(response => response.text()).catch(null);
+			else signature = await fetch(url.toString() + (url.toString().endsWith("/") ? "" : "/") + "verify.txt").then(response => response.text()).catch(null);
 		}
 		return new SquirrelpubPayload(await response.text(), url.toString(), signature ? signature : undefined);
 	}

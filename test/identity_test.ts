@@ -42,14 +42,12 @@ Deno.test({
 		const spy = fetchSequenceSpy([JSON.stringify(test_object.json), "jPXN6s3YE1Faki7aCquo/KzMHx3wQ50KiEzLwRKstN2BQCWXuZPCTKsujj2XOYfXQcQp1Buw1gmdIiNbbJIXDQ=="]);
 		const identity = await squirrelpub.fetchIdentity(test_object.id);
 
-		console.log(JSON.parse(JSON.stringify(identity)));
-
 		assertSpyCalls(spy, 2);
 		assertSpyCallArgs(spy, 0, [new URL(test_object.fetch_url)]);
 		assertEquals(identity.success, true);
 		assertEquals(identity.squirrelpub_type, test_expected_response.squirrelpub_type);
 		assertEquals(identity.id, test_object.id);
-		//assertEquals(identity.squirrelpub._original_url, test_object.fetch_url);
+		assertEquals(identity.squirrelpub._request_meta().original_url, test_object.fetch_url);
 	}
 });
 Deno.test({
@@ -108,7 +106,7 @@ Deno.test({
 		assertEquals(identity.success, true);
 		assertEquals(identity.squirrelpub_type, test_expected_response.squirrelpub_type);
 		assertEquals(identity.id, test_object.id);
-		//assertEquals(identity.squirrelpub._original_url, test_expected_response.squirrelpub._original_url);
+		assertEquals(identity.squirrelpub._request_meta().original_url, test_object.fetch_url);
 
 		assertExists(identity.verify_public_key);
 

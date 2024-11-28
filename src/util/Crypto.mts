@@ -10,5 +10,5 @@ export async function signString(string_to_sign: string, private_key: CryptoKey)
 
 export async function verifyString(string_to_verify: string, public_key: CryptoKey, signature: string): Promise<boolean> {
 	const signature_array = Uint8Array.from(atob(signature), c => c.charCodeAt(0));
-	return await crypto.subtle.verify({ name: "Ed25519" }, public_key, signature_array, new TextEncoder().encode(string_to_verify));
+	return await crypto.subtle.verify(public_key.algorithm, public_key, signature_array, new TextEncoder().encode(string_to_verify));
 }
