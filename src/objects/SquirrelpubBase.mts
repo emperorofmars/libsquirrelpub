@@ -16,7 +16,7 @@ export interface SquirrelpubMeta {
 	/** The URL this object was fetched from. */
 	//_verified: boolean;
 
-	_request_meta: (() => {original_url: string | undefined, signature_resolved: string | undefined, verified: boolean});
+	_request_meta: (() => {original_url: string | undefined, signature_resolved: string | undefined, verified: boolean, imported_public_key: CryptoKey | undefined});
 }
 
 /**

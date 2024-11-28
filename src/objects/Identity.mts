@@ -154,10 +154,12 @@ export class Identity implements SquirrelpubBase {
 		const ret = new Identity(JSON.parse(payload.payload));
 
 		let verified = false;
+		let imported_public_key = undefined;
 		if(ret.verify_public_key) {
-			verified = await payload.verify(await importKey(ret.verify_public_key))
+			imported_public_key = await importKey(ret.verify_public_key);
+			verified = await payload.verify(imported_public_key)
 		}
-		ret.squirrelpub._request_meta = () => {return {original_url: payload.original_url, signature_resolved: payload.signature, verified: verified};};
+		ret.squirrelpub._request_meta = () => {return {original_url: payload.original_url, signature_resolved: payload.signature, verified: verified, imported_public_key: imported_public_key};};
 		return ret;
 	}
 

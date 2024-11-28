@@ -1,4 +1,5 @@
-import { verifyString } from "../util/Crypto.mts";
+import { importKey, verifyString } from "../util/Crypto.mts";
+import type { Identity } from "./Identity.mts";
 
 /**
  * Fetches and represents a raw squirrelpub object, and tries to verify its signature.
@@ -59,7 +60,16 @@ export class SquirrelpubPayload {
 	}
 
 	async verify(public_key: CryptoKey, signature: string | undefined = undefined): Promise<boolean> {
-		const used_dignature = signature ? signature : this.signature;
-		return used_dignature ? await verifyString(this.payload, public_key, used_dignature) : false;
+		const used_signature = signature ? signature : this.signature;
+		return used_signature ? await verifyString(this.payload, public_key, used_signature) : false;
+	}
+
+	async verify_from_identity(identity: Identity, signature: string | undefined = undefined): Promise<boolean> {
+		const used_signature = signature ? signature : this.signature;
+		if(identity.verify_public_key && used_signature ) {
+			const key = await importKey(identity.verify_public_key);
+			await verifyString(this.payload, key, used_signature)
+		}
+		return false;
 	}
 }
