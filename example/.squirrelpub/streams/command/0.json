@@ -1,0 +1,15 @@
+{
+	"squirrelpub": {
+		"type": "message",
+		"version_major": 0,
+		"version_inor": 0
+	},
+	"message_type": "command",
+	"command_type": "delete",
+	"id": 0,
+	"owner_id": "example.squirrelpub.com",
+	"stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/command",
+	"timestamp": "2024-11-09T02:56:19.767Z",
+	"target_stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/post",
+	"target_id": 2
+}

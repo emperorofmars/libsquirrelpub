@@ -1,13 +1,14 @@
 {
 	"squirrelpub": {
 		"type": "message",
-		"version": "0.0.6"
+		"version_major": 0,
+		"version_inor": 0
 	},
 	"message_type": "post",
-	"id": 1,
+	"id": 0,
 	"owner_id": "example.squirrelpub.com",
 	"timestamp": "2024-11-06T02:56:19.767Z",
-	"stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/stream",
+	"stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/reply",
 	"post": {
 		"type": "microblog",
 		"parent": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/stream/1.json",

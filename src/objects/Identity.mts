@@ -1,5 +1,5 @@
 import { importKey } from "../util/Crypto.mts";
-import type { Attachment, Content } from "./JsonObjects.mts";
+import type { Attachment, Content, StreamReference } from "./JsonObjects.mts";
 import type { SquirrelpubMeta, SquirrelpubBase } from './SquirrelpubBase.mts';
 import { SquirrelpubPayload } from "./SquirrelpubPayload.mts";
 
@@ -48,18 +48,20 @@ export interface IdentityProfile {
 	icon: Attachment | undefined;
 	/** Profile header image. */
 	header: Attachment | undefined;
+	
+	/**
+	 * Support custom properties. Squirrelpub is extensible
+	 */ // deno-lint-ignore no-explicit-any
+	[key: string]: any;
 }
 
 /**
- * Defines the relationships to other Identities.
+ * Defines a JsonWebKey with the algorithm used as required by 'SubtleCrypto.importKey'.
  */
-export interface RelationshipGraph {
-	/** URL to retrieve an object describing Identities this one is subscribed to. */
-	subscribed: string | undefined;
-	/** URL to retrieve an object describing Identities that subscribed to this one. */
-	subscribers: string | undefined;
-	/** URL to retrieve an object describing Identities that are forbidden from interacting with this one. */
-	deny: string | undefined;
+export interface Key {
+	// deno-lint-ignore no-explicit-any
+	algorithm: any,
+	key: JsonWebKey
 }
 
 /**
@@ -80,10 +82,7 @@ export class Identity implements SquirrelpubBase {
 	id: string | undefined;
 
 	/** The public key for verifying signatures of objects belonging to this identity. */
-	verify_public_key: JsonWebKey | undefined;
-
-	/** URL to a Squirrelpub 'list' containing past public keys */
-	past_verify_public_keys: string | undefined;
+	verify_public_key: Key | undefined;
 
 	/** The timestamp when this Identity was created. */
 	created_timestamp: string | undefined;
@@ -93,46 +92,33 @@ export class Identity implements SquirrelpubBase {
 
 	/** If set, then this alias will be fetched by the client and displayed. This serves resiliency. */
 	primary_alias: string | undefined;
-	
-	/** Identity types can be 'user', 'server', 'cache' or any combination thereof. */
+
+	/** Identity types can be 'user', 'forum', 'server', 'cache' or anything else. This serves as a hint on how clients should display this identity. */
 	identity_type: string | undefined;
 
 	/** The profile describes the information which is to be displayed on a profile page. */
 	profile: IdentityProfile | undefined;
 
-	/** URL of this Identities Stream. {@link Stream} */
-	stream: string | undefined;
+	/** Set of Stream references. {@link StreamReference} */
+	streams: {
+		post: StreamReference | undefined,
+		reply: StreamReference | undefined,
+		command: StreamReference | undefined,
+		subscribed: StreamReference | undefined,
+		subscribers: StreamReference | undefined,
+		deny: StreamReference | undefined,
+		past_public_keys: StreamReference | undefined,
+		[key: string]: StreamReference | undefined
+	} | undefined;
 	
-	/**
-	 * Backup Streams in case the main one goes down.
-	 * This serves resiliency.
-	 */
-	stream_replications: string[] | undefined;
-	
-	/**
-	 * If omitted this Identity can not have authenticated followers or follow any other Identity.
-	 * If you follow such an Identity, it will never know about you following it.
-	 */
-	relationship_graph: RelationshipGraph | undefined;
-	
-	/**
-	 * URL to a StreamRegistry hosted by this Identity.
-	 * A StreamRegistry hosts Streams for other Identities.
-	 */
-	stream_registry: string | undefined;
-	
-	/**
-	 * URL to a FederationRegistry hosted by this Identity.
-	 * A FederationRegistry hosts endpoints to search for content across the entire network.
-	 */
-	federation_registry: string | undefined;
-	
-	/**
-	 * URL to a CachingService hosted by this Identity.
-	 * A CachingService hosts endpoints to fetch content from.
-	 */
-	caching_service: string | undefined;
-	
+	/** Set of URL's to offered services. */
+	services: {
+		stream_registry: string | undefined,
+		federation_registry: string | undefined,
+		caching_service: string | undefined,
+		[key: string]: string | undefined
+	} | undefined;
+
 	/**
 	 * A list of Squirrelpub IDs which this Identity knows to exist.
 	 * Acts as a 'seed' for automatic federation & discovery.

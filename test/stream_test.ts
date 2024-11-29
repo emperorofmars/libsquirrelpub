@@ -27,7 +27,7 @@ Deno.test({
 		assertEquals(stream.replications.length, 1);
 		assertEquals(stream.replications, ["https://backup.somewhere.else.com/atsomepath"]);
 
-		assertEquals(stream.constructMessageUrl(1), "https://example.squirrelpub.com/stream/" + 1 + ".json");
+		assertEquals(stream.constructMessageUrl(1), "https://example.squirrelpub.com/streams/post/" + 1 + ".json");
 	}
 });
 

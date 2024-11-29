@@ -1,0 +1,24 @@
+{
+	"squirrelpub": {
+		"type": "page",
+		"version_major": 0,
+		"version_inor": 0
+	},
+	"message_type": "list",
+	"list_type": "relationship",
+	"relationship_type": "subscribed",
+	"id": 1,
+	"owner_id": "example.squirrelpub.com",
+	"stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/subscribed",
+	"timestamp": "2024-10-23T02:56:19.767Z",
+	"elements": [
+		{
+			"id": "someoneevenmoredifferent.squirrelpub.com",
+			"signature": ""
+		},
+		{
+			"id": "someone-weird.squirrelpub.com",
+			"signature": ""
+		}
+	]
+}

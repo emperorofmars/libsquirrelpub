@@ -21,8 +21,8 @@ Deno.test({
 	permissions: { read: true },
 	ignore: Deno.permissions.querySync({ name: "read" }).state !== "granted",
 	async fn() {
-		const raw_json = await Deno.readTextFile("example/.squirrelpub/stream/index.json");
-		const signature = await Deno.readTextFile("example/.squirrelpub/stream/verify.txt");
+		const raw_json = await Deno.readTextFile("example/.squirrelpub/streams/post/index.json");
+		const signature = await Deno.readTextFile("example/.squirrelpub/streams/post/verify.txt");
 		const public_key = await importKey(testObjects.test_identity_public_key);
 
 		const result = await verifyString(raw_json, public_key, signature);

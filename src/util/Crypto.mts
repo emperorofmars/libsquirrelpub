@@ -1,9 +1,10 @@
+import type { Key } from "../objects/Identity.mts";
 
 /**
  * Import a Squirrelpub JsonWebKey.
  */
-export async function importKey(json_key: JsonWebKey): Promise<CryptoKey> {
-	return await crypto.subtle.importKey("jwk", json_key, { name: "Ed25519" }, true, json_key.key_ops as KeyUsage[]);
+export async function importKey(key: Key): Promise<CryptoKey> {
+	return await crypto.subtle.importKey("jwk", key.key, key.algorithm, true, key.key.key_ops as KeyUsage[]);
 }
 
 /**

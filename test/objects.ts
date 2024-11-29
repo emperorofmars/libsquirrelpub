@@ -2,13 +2,13 @@
 export const identity_valid_minimal = {
 	id: "example.squirrelpub.com",
 	fetch_url: "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity",
-	json: {squirrelpub: {type: "identity"},id: "example.squirrelpub.com"}
+	json: {squirrelpub: {type: "identity"}, id: "example.squirrelpub.com"}
 }
 
 export const identity_invalid_minimal = {
 	id: "example.squirrelpub.com",
 	fetch_url: "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity",
-	json: {squirrelpub: {},id: ".com."}
+	json: {squirrelpub: {}, id: ".com."}
 }
 
 import identity_valid_full_json from "../example/.squirrelpub/identity/index.json" with { type: "json" }
@@ -19,13 +19,13 @@ export const identity_valid_full = {
 }
 
 export const stream_valid_minimal = {
-	fetch_url: "https://example.squirrelpub.com/stream",
+	fetch_url: "https://example.squirrelpub.com/streams/post",
 	json: {
 		squirrelpub: {
 			type: "stream"
 		},
 		stream_name: "Main",
-		url_base: "https://example.squirrelpub.com/stream/",
+		url_base: "https://example.squirrelpub.com/streams/post/",
 		latest: 1,
 		url_suffix: ".json",
 		owner_id: "example.squirrelpub.com",
@@ -38,26 +38,26 @@ export const stream_valid_minimal = {
 }
 
 export const stream_invalid_minimal = {
-	fetch_url: "https://example.squirrelpub.com/stream",
+	fetch_url: "https://example.squirrelpub.com/streams/post",
 	json: {
 		squirrelpub: {
 			type: "stre"
 		},
 		stream_name: "Main",
-		url_base: "https://example.squirrelpub.com/stream/",
+		url_base: "https://example.squirrelpub.com/streams/post/",
 		latest: 1,
 		url_suffix: ".json",
 		owner_id: "john.doe.example.com",
 		subscribe: false,
 		min_poll_interval: 600000,
 		replications: [
-			"https://backup.somewhere.else.com/atsomepath"
+			"https://backup.somewhere.else.com/atsomepath/post"
 		]
 	}
 }
 
 export const message_valid_minimal = {
-	fetch_url: "https://example.squirrelpub.com/stream/1.json",
+	fetch_url: "https://example.squirrelpub.com/streams/post/1.json",
 	json: {
 		squirrelpub: {
 			type: "message"
@@ -79,17 +79,23 @@ export const message_valid_minimal = {
 }
 
 export const test_identity_public_key = {
-	kty: "OKP",
-	crv: "Ed25519",
-	x: "THvD7wsl82IY9hB0w3R6AGTWUfshDyC5LVWGLZrRpnE",
-	key_ops: [ "verify" ],
-	ext: true
+	algorithm: { name: "Ed25519" },
+	key: {
+		kty: "OKP",
+		crv: "Ed25519",
+		x: "THvD7wsl82IY9hB0w3R6AGTWUfshDyC5LVWGLZrRpnE",
+		key_ops: [ "verify" ],
+		ext: true
+	}
 }
 export const test_identity_private_key = {
-	kty: "OKP",
-	crv: "Ed25519",
-	x: "THvD7wsl82IY9hB0w3R6AGTWUfshDyC5LVWGLZrRpnE",
-	key_ops: [ "sign" ],
-	ext: true,
-	d: "xjI6qs141P6-5CZg0710AYXwVU3mTzLD8aY_Uylgzww"
+	algorithm: { name: "Ed25519" },
+	key: {
+		kty: "OKP",
+		crv: "Ed25519",
+		x: "THvD7wsl82IY9hB0w3R6AGTWUfshDyC5LVWGLZrRpnE",
+		key_ops: [ "sign" ],
+		ext: true,
+		d: "xjI6qs141P6-5CZg0710AYXwVU3mTzLD8aY_Uylgzww"
+	}
 }

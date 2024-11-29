@@ -1,6 +1,7 @@
 {
 	"squirrelpub": {
 		"type": "cache_service",
-		"version": "0.0.6"
+		"version_major": 0,
+		"version_inor": 0
 	}
 }

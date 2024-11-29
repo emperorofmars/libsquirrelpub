@@ -1,9 +1,9 @@
 import { importKey, signString } from "../src/util/Crypto.mts";
-import * as testObjects from "./objects.ts";
+import * as testObjects from "../test/objects.ts";
 
 Deno.test({
 	name: "Generate keypair",
-	ignore: true,
+	only: true,
 	async fn() {
 		const keypair = await crypto.subtle.generateKey({ name: "Ed25519" }, true, ["sign", "verify"]) as CryptoKeyPair;
 		console.log(await crypto.subtle.exportKey("jwk", keypair.publicKey));
@@ -13,10 +13,10 @@ Deno.test({
 
 Deno.test({
 	name: "Generate signature for example file",
-	ignore: true,
+	only: true,
 	async fn() {
 		const path = "example/.squirrelpub/identity/index.json";
-		//const path = "example/.squirrelpub/stream/index.json";
+		//const path = "example/.squirrelpub/streams/post/index.json";
 		
 		const raw_json = await Deno.readTextFile(path);
 		

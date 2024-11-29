@@ -110,7 +110,7 @@ Deno.test({
 
 		assertExists(identity.verify_public_key);
 
-		assertEquals(identity.alias_identities, ["example.somwhereelse.pub"]);
+		assertEquals(identity.alias_identities, ["example.somwhereelse.pub","this.one.just.backs.everything.up.on.my.raspberrypi.mydomain.com"]);
 		assertEquals(identity.primary_alias, test_object.id);
 
 		assertExists(identity.profile);
@@ -136,14 +136,10 @@ Deno.test({
 		assertGreater(tag.name?.length, 0);
 		assertGreater(tag.value?.length, 0);
 
-		assertEquals(identity.stream, "https://squirrelpub.example.squirrelpub.com/.squirrelpub/stream");
-		assertExists(identity.stream_replications);
+		assertExists(identity.streams?.post?.url);
+		assertEquals(identity.streams.post.url, "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/post");
 		
-		assertExists(identity.relationship_graph);
-		
-		assertExists(identity.stream_registry);
-		assertExists(identity.federation_registry);
-		assertExists(identity.caching_service);
+		assertExists(identity.services);
 		assertExists(identity.federation_anchors);
 	}
 });

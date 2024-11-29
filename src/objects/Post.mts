@@ -1,16 +1,4 @@
-import type { Attachment, Content } from "./JsonObjects.mts";
-
-/**
- * 
- */
-export interface InteractionGraph {
-	/** URL to retrieve an object describing Identities which favourited this object. */
-	favourites: string | undefined;
-	/** URL to retrieve an object describing posts which set this one as their parent. */
-	replies: string | undefined;
-	/** URL to retrieve an object describing posts which set this one as an attachment. */
-	shares: string | undefined;
-}
+import type { Attachment, Content, StreamReference } from "./JsonObjects.mts";
 
 /**
  * Squirrelpub Post.
@@ -39,13 +27,14 @@ export interface Post {
 	 * @link Attachment
 	 */
 	attachment: Attachment[] | undefined;
-
-	/**
-	 * URLs of Squirrelpub lists linking responses & favourites of this post.
-	 * 
-	 * @link InteractionGraph
-	 */
-	social_graph: InteractionGraph | undefined;
+	
+	/** Set of Stream references which list responses & favourites of this post. {@link StreamReference} */
+	interaction_streams: {
+		favourites: StreamReference | undefined,
+		replies: StreamReference | undefined,
+		shares: StreamReference | undefined,
+		[key: string]: StreamReference | undefined
+	} | undefined;
 	
 	/**
 	 * Support custom properties. Squirrelpub is extensible

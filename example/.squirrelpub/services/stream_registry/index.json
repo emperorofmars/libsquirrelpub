@@ -1,7 +1,7 @@
 {
 	"squirrelpub": {
 		"type": "stream_registry",
-		"version": "0.0.6"
-	},
-	"list_type": "deny"
+		"version_major": 0,
+		"version_inor": 0
+	}
 }

@@ -1,0 +1,17 @@
+{
+	"squirrelpub": {
+		"type": "stream",
+		"version_major": 0,
+		"version_inor": 0
+	},
+	"stream_name": "Replies",
+	"url_base": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/reply/",
+	"latest": 0,
+	"url_suffix": ".json",
+	"owner_id": "example.squirrelpub.com",
+	"subscribe": false,
+	"min_poll_interval": 600000,
+	"replications": [
+		"https://backup.somewhere.else.com/atsomepath/reply"
+	]
+}
