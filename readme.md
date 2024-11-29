@@ -26,21 +26,25 @@ The response will be the Squirrelpub identity object.
 {
 	"squirrelpub": {
 		"type": "identity",
-		"version": "0.0.5",
+		"version_major": 0,
+		"version_inor": 0,
 		"signature": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity/verify.txt"
 	},
-	"identity_type": "user",
 	"id": "example.squirrelpub.com",
-	"public_key": {
-		"kty": "OKP",
-		"crv": "Ed25519",
-		"x": "2zedMdcc904ZEoelhu5QFR1euYrEXegDF5F7Mwj49HY",
-		"key_ops": [ "verify" ],
-		"ext": true
+	"verify_public_key": {
+		"algorithm": { "name": "Ed25519" },
+		"key": {
+			"kty": "OKP",
+			"crv": "Ed25519",
+			"x": "THvD7wsl82IY9hB0w3R6AGTWUfshDyC5LVWGLZrRpnE",
+			"key_ops": [ "verify" ],
+			"ext": true
+		}
 	},
-	"past_verify_public_keys": "https://example.squirrelpub.com/.squirrelpub/past_public_keys",
-	"past_public_keys": "https://example.squirrelpub.com/.squirrelpub/past_public_keys",
-	"alias_identities": ["john.somwhereelse.pub"],
+	"alias_identities": [
+		"example.somwhereelse.pub",
+		"this.one.just.backs.everything.up.on.my.raspberrypi.mydomain.com"
+	],
 	"primary_alias": "example.squirrelpub.com",
 	"created_timestamp": "2024-11-06T02:56:19.767Z",
 	"profile": {
@@ -73,18 +77,20 @@ The response will be the Squirrelpub identity object.
 			}
 		]
 	},
-	"stream": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/stream",
-	"stream_replications": [
-		"https://backup.somewhere.else.com/atsomepath"
-	],
-	"social_graph": {
-		"subscribed_stream": "https://example.squirrelpub.com/.squirrelpub/graph/subscribed",
-		"subscribers_stream": "https://example.squirrelpub.com/.squirrelpub/graph/subscribers",
-		"deny_stream": "https://example.squirrelpub.com/.squirrelpub/graph/deny"
+	"streams": {
+		"post": { "url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/post", "replications": ["https://backup.somewhere.else.com/atsomepath/post"] },
+		"reply": { "url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/reply", "replications": ["https://backup.somewhere.else.com/atsomepath/reply"] },
+		"command": { "url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/command", "replications": ["https://backup.somewhere.else.com/atsomepath/command"] },
+		"subscribed": { "url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/subscribed", "replications": ["https://backup.somewhere.else.com/atsomepath/subscribed"] },
+		"subscribers": { "url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/subscribers", "replications": ["https://backup.somewhere.else.com/atsomepath/subscribers"] },
+		"deny": { "url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/deny", "replications": ["https://backup.somewhere.else.com/atsomepath/deny"] },
+		"past_public_keys": { "url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/past_public_keys", "replications": ["https://backup.somewhere.else.com/atsomepath/past_public_keys"] }
 	},
-	"stream_registry": "https://example.squirrelpub.com/.squirrelpub/stream_registry",
-	"federation_registry": "https://example.squirrelpub.com/.squirrelpub/federation_registry",
-	"caching_service": "https://example.squirrelpub.com/.squirrelpub/cache_service",
+	"services": {
+		"cache": { "url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/services/cache_service" },
+		"federation_registry": { "url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/services/federation_registry" },
+		"stream_registry": { "url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/services/stream_registry" }
+	},
 	"federation_anchors": [
 		"example.squirrelpub.com",
 		"squirrelpub.com",

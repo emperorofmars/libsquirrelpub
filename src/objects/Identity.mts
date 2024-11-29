@@ -59,8 +59,7 @@ export interface IdentityProfile {
  * Defines a JsonWebKey with the algorithm used as required by 'SubtleCrypto.importKey'.
  */
 export interface Key {
-	// deno-lint-ignore no-explicit-any
-	algorithm: any,
+	algorithm: AlgorithmIdentifier | HmacImportParams | RsaHashedImportParams | EcKeyImportParams,
 	key: JsonWebKey
 }
 

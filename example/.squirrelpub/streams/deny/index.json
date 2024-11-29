@@ -4,7 +4,7 @@
 		"version_major": 0,
 		"version_inor": 0
 	},
-	"stream_name": "Deny",
+	"stream_name": "Public Blocklist",
 	"url_base": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/deny/",
 	"latest": null,
 	"url_suffix": ".json",

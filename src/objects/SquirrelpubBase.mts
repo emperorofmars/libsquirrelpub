@@ -4,18 +4,17 @@
 export interface SquirrelpubMeta {
 	/** The Squirrelpub object type */
 	type: string;
-	/** The Squirrelpub protocol version. */
-	version: string | undefined;
+	/** The Squirrelpub protocol major version. */
+	version_major: number | undefined;
+	/** The Squirrelpub protocol minor version. */
+	version_minor: number | undefined;
 	/** The URL from which a signature for this Squirrelpub object can be fetched from, if it wasn't contained in the Http headers. */
 	signature: string | undefined;
 
-	/** The URL this object was fetched from. */
-	//_original_url: string | undefined;
-	/** The resolved signature for this object. */
-	//_signature_resolved: string | undefined;
-	/** The URL this object was fetched from. */
-	//_verified: boolean;
-
+	/**
+	 * Function which returns info about the Squirrelpub object like wether its original payload was successfully verified.
+	 * Its a function so that this data doesn't get stringified.
+	 */
 	_request_meta: (() => {original_url: string | undefined, signature_resolved: string | undefined, verified: boolean, imported_public_key: CryptoKey | undefined});
 }
 
