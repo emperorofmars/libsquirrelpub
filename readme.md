@@ -24,10 +24,7 @@ https://squirrelpub.john.doe.example.com/.squirrelpub/identity
 The response will be the Squirrelpub identity object.
 ``` json
 {
-	"squirrelpub": {
-		"type": "identity",
-		"version_major": 0,
-		"version_inor": 0,
+	"squirrelpub": { "type": "identity", "version_major": 0, "version_minor": 0,
 		"signature": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity/verify.txt"
 	},
 	"id": "example.squirrelpub.com",

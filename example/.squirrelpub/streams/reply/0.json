@@ -2,7 +2,7 @@
 	"squirrelpub": {
 		"type": "message",
 		"version_major": 0,
-		"version_inor": 0
+		"version_minor": 0
 	},
 	"message_type": "post",
 	"id": 0,

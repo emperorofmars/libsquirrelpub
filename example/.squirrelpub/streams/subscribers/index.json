@@ -2,7 +2,7 @@
 	"squirrelpub": {
 		"type": "stream",
 		"version_major": 0,
-		"version_inor": 0
+		"version_minor": 0
 	},
 	"stream_name": "Subscribers",
 	"url_base": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/subscribers/",
