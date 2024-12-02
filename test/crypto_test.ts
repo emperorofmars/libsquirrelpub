@@ -44,7 +44,7 @@ Deno.test({
 		const signature = await Deno.readTextFile("example/.squirrelpub/identity/verify.txt");
 
 
-		const spy = fetchSequenceSpy([raw_json, signature]);
+		const _ = fetchSequenceSpy([raw_json, signature]);
 		const identity = await fetchIdentity("example.squirrel.pub");
 
 		const result = identity.squirrelpub._request_meta().verified;

@@ -16,10 +16,10 @@ I like services like Mastodon & the Fediverse and such, but to put it lightly, t
 ====
 
 == How It Works
-Your ID is a domain hostname, for example `john.doe.example.com`.
+Your ID is a domain hostname, for example `example.squirrelpub.com`.
 
-You have to prefix `squirrelpub.` to the ID in order to get the final hostname.\
-The final hostname bocomes `squirrelpub.john.doe.example.com` in this example.
+You have to prefix `squirrelpub.` to the ID in order to get the final hostname.
+The final hostname bocomes `squirrelpub.example.squirrelpub.com` in this example.
 
 .In order to fetch the identity, do a `Https GET` request to the Squirrelpub endpoint like so:
 ----
