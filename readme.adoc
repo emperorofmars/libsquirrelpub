@@ -42,16 +42,13 @@ The response will be the Squirrelpub identity object.
 	},
 	"streams": {
 		"post": {
-			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/post",
-			"replications": ["https://backup.somewhere.else.com/atsomepath/post"]
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/post"
 		},
 		"subscribed": {
-			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/subscribed",
-			"replications": ["https://backup.somewhere.else.com/atsomepath/subscribed"]
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/subscribed"
 		},
 		"subscribers": {
-			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/subscribers",
-			"replications": ["https://backup.somewhere.else.com/atsomepath/subscribers"]
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/subscribers"
 		},
 	}
 }
