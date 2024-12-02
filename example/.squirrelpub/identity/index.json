@@ -57,11 +57,6 @@
 				"value": "Software Engineer"
 			},
 			{
-				"type": "com.example.custom.namespace.for.whatever",
-				"name": "Fluffy",
-				"value": true
-			},
-			{
 				"type": "com.spotify.current_song",
 				"name": "Spotify",
 				"value": {
