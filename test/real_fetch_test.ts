@@ -33,10 +33,7 @@ Deno.test({
 
 		const identity = await Identity.fromPayload(payload);
 
-		const signature = identity.squirrelpub._request_meta().signature_resolved;
-
-		//console.log(identity);
-		console.log(signature);
+		console.log(identity);
 		console.log(identity.squirrelpub._request_meta());
 		console.log(identity.squirrelpub._request_meta().verified);
 

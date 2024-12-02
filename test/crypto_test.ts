@@ -2,7 +2,8 @@ import { assertEquals } from "@std/assert/equals";
 import { importKey, verifyString } from "../src/util/Crypto.mts";
 import * as testObjects from "./objects.ts";
 import { SquirrelpubPayload } from "../src/objects/SquirrelpubPayload.mts";
-import { Identity, Stream } from "../src/libsquirrelpub.mts";
+import { fetchIdentity, Identity, Stream } from "../src/libsquirrelpub.mts";
+import { fetchSequenceSpy } from "./utils.ts";
 
 Deno.test({
 	name: "Verify example identity signature",
@@ -28,6 +29,23 @@ Deno.test({
 
 		const payload = new SquirrelpubPayload(raw_json, "https://squirrelpub.example.squirrel.pub/.squirrelpub/identity", signature);
 		const identity = await Identity.fromPayload(payload);
+
+		const result = identity.squirrelpub._request_meta().verified;
+		assertEquals(result, true);
+	}
+});
+
+Deno.test({
+	name: "Payload verify example identity signature with fetch mock",
+	permissions: { read: true },
+	ignore: Deno.permissions.querySync({ name: "read" }).state !== "granted",
+	async fn() {
+		const raw_json = await Deno.readTextFile("example/.squirrelpub/identity/index.json");
+		const signature = await Deno.readTextFile("example/.squirrelpub/identity/verify.txt");
+
+
+		const spy = fetchSequenceSpy([raw_json, signature]);
+		const identity = await fetchIdentity("example.squirrel.pub");
 
 		const result = identity.squirrelpub._request_meta().verified;
 		assertEquals(result, true);
