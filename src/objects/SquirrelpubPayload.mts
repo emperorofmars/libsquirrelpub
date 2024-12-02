@@ -3,7 +3,7 @@ import type { Identity } from "./Identity.mts";
 
 /**
  * Fetches and represents a raw squirrelpub object, and tries to verify its signature.
- * 
+ *
  * Specific Squirrelpub objects can be constructed from this.
  */
 export class SquirrelpubPayload {
@@ -25,7 +25,7 @@ export class SquirrelpubPayload {
 
 	/**
 	 * Fetch a Squirrelpub object from the given @param url
-	 * 
+	 *
 	 * @throws If the fetch failed
 	 */
 	static async fetch(url: URL | string, verify_url: URL | string | undefined = undefined): Promise<SquirrelpubPayload> {
@@ -50,6 +50,7 @@ export class SquirrelpubPayload {
 		if(!response.ok) {
 			return Promise.reject("Could not fetch Squirrelpub object!");
 		}
+		const payload = await response.text();
 
 		// If the server is not static, the signature for the fetched object should be in this header.
 		let signature = response.headers.get("SQUIRRELPUB_SIGNATURE");
@@ -67,7 +68,7 @@ export class SquirrelpubPayload {
 			}
 			signature = await fetch(verify_url).then(response => response.text()).catch(null);
 		}
-		return new SquirrelpubPayload(await response.text(), url.toString(), signature ? signature : undefined);
+		return new SquirrelpubPayload(payload, url.toString(), signature ? signature : undefined);
 	}
 
 	/**

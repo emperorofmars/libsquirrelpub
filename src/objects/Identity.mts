@@ -15,10 +15,10 @@ export interface NamedLink {
 
 /**
  * Tags on a profile can describe things like an occupation, pronouns, fursona species, ...
- * 
+ *
  * The type is namespaced and can be used as a hint on how the client should render it.
  * If the type is not understood by the client, the name will be used instead. Otherwise if a type is understood, it may still make use of the name.
- * 
+ *
  * This is somewhat inspired by Blueskys tagging system, except here a user can set them themselves.
  */
 export interface ProfileTag {
@@ -32,7 +32,7 @@ export interface ProfileTag {
 
 /**
  * The profile of an Identity.
- * 
+ *
  * It describes the values needed to build a profile similar to how social media sites work.
  */
 export interface IdentityProfile {
@@ -48,7 +48,7 @@ export interface IdentityProfile {
 	icon: Attachment | undefined;
 	/** Profile header image. */
 	header: Attachment | undefined;
-	
+
 	/**
 	 * Support custom properties. Squirrelpub is extensible
 	 */ // deno-lint-ignore no-explicit-any
@@ -71,7 +71,7 @@ export class Identity implements SquirrelpubBase {
 	 * The Squirrelpub object contains the squirrelpub type, version and optional URL to retrieve the signature of the original payload, if not present in the http header.
 	 */
 	squirrelpub!: SquirrelpubMeta;
-	
+
 	/**
 	 * Support custom properties. Squirrelpub is extensible
 	 */ // deno-lint-ignore no-explicit-any
@@ -109,7 +109,7 @@ export class Identity implements SquirrelpubBase {
 		past_public_keys: StreamReference | undefined,
 		[key: string]: StreamReference | undefined
 	} | undefined;
-	
+
 	/** Set of URL's to offered services. */
 	services: {
 		stream_registry: string | undefined,
@@ -173,11 +173,11 @@ export class Identity implements SquirrelpubBase {
 
 /**
  * Construct an URL from a Squirrelpub ID, from which the Identity can be fetched.
- * 
+ *
  * A Squirrelpub ID must be a valid DNS hostname.
  * To turn an ID into the Squirrelpub hostname, prefix it with `squirrelpub.`.
  * To turn a Squirrelpub hostname into the final URL from which the Identity can be fetched, prefix it with `https://` and append it with `/.squirrelpub/identity"`.
- * 
+ *
  * @param {string} id - the ID, without the 'squirrelpub' hostname prefixed
  * @returns {URL} The squirrelpub fetch URL
  * @throws If the id is an invalid hostname
@@ -198,7 +198,7 @@ export function constructIdentityURL(id: string): URL {
 
 /**
  * Load a squirrelpub identity by its ID (domain without the 'squirrelpub' hostname prefixed).
- * 
+ *
  * @param {string} id - the identities domain, without the 'squirrelpub' hostname prefixed
  * @returns {Promise<Identity>} The squirrelpub identity if found
  */
