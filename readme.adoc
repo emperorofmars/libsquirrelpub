@@ -1,0 +1,174 @@
+
+= Squirrelpub
+:hardbreaks-option:
+
+What if ActivityPub and ATProto smoked crack and had an ugly child which they forced to be statically hostable?
+
+**Squirrelpub is a not serious and purely experimental federated social protocol.**
+
+This is a JS/TS library built in Deno 2 for fetching and working with Squirrelpub objects.
+
+[NOTE]
+====
+This is a weekend experiment mostly to (re)familiarize myself with the JS/TS ecosystem. I am making also a frontend app with React and Angular, and at some point also a backend, likely with Express or perhaps I'll try a Rust framework.
+
+I like services like Mastodon & the Fediverse and such, but to put it lightly, they have issues, including total UX failures. I'm experimenting with ways to alleviate these, while making it stupidly easy to self-host your own social-media profile and content.
+====
+
+== How It Works
+Your ID is a domain hostname, for example `john.doe.example.com`.
+
+You have to prefix `squirrelpub.` to the ID in order to get the final hostname.\
+The final hostname bocomes `squirrelpub.john.doe.example.com` in this example.
+
+.In order to fetch the identity, do a `Https GET` request to the Squirrelpub endpoint like so:
+----
+https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity
+----
+The response will be the Squirrelpub identity object.
+
+.Minimal identity example
+[%collapsible%open]
+====
+[source%collapsible,json]
+----
+{
+	"squirrelpub": {
+		"type": "identity"
+	},
+	"id": "example.squirrelpub.com",
+	"profile": {
+		"name": "Example Squirrelpub Identity"
+	},
+	"streams": {
+		"post": {
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/post",
+			"replications": ["https://backup.somewhere.else.com/atsomepath/post"]
+		},
+		"subscribed": {
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/subscribed",
+			"replications": ["https://backup.somewhere.else.com/atsomepath/subscribed"]
+		},
+		"subscribers": {
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/subscribers",
+			"replications": ["https://backup.somewhere.else.com/atsomepath/subscribers"]
+		},
+	}
+}
+----
+====
+
+.Full identity example
+[%collapsible]
+====
+[,json]
+----
+{
+	"squirrelpub": {
+		"type": "identity",
+		"version_major": 0, "version_minor": 0,
+		"signature": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/identity/verify.txt"
+	},
+	"id": "example.squirrelpub.com",
+	"verify_public_key": {
+		"algorithm": { "name": "Ed25519" },
+		"key": {
+			"kty": "OKP",
+			"crv": "Ed25519",
+			"x": "THvD7wsl82IY9hB0w3R6AGTWUfshDyC5LVWGLZrRpnE",
+			"key_ops": [ "verify" ],
+			"ext": true
+		}
+	},
+	"alias_identities": [
+		"example.somwhereelse.pub",
+		"this.one.just.backs.everything.up.on.my.raspberrypi.mydomain.com"
+	],
+	"primary_alias": "example.squirrelpub.com",
+	"created_timestamp": "2024-11-06T02:56:19.767Z",
+	"profile": {
+		"name": "Example Squirrelpub Identity",
+		"description": {
+			"type": "text/markdown",
+			"content": "Hi\nI'm an example **Identity** on **Squirrelpub**!"
+		},
+		"links": [
+			{
+				"name": "GitHub",
+				"url": "https://github.com/emperorofmars/libsquirrelpub"
+			}
+		],
+		"tags": [
+			{
+				"type": "squirrelpub.fluffy",
+				"displayname": "Fluffy",
+				"value": true
+			},
+			{
+				"type": "squirrelpub.fursone_species",
+				"name": "Species",
+				"value": "Squirrel"
+			},
+			{
+				"type": "scom.quirrelpub.pronouns",
+				"name": "Pronouns",
+				"value": "example/test"
+			}
+		]
+	},
+	"streams": {
+		"post": {
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/post",
+			"replications": ["https://backup.somewhere.else.com/atsomepath/post"]
+		},
+		"reply": {
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/reply",
+			"replications": ["https://backup.somewhere.else.com/atsomepath/reply"]
+		},
+		"command": {
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/command",
+			"replications": ["https://backup.somewhere.else.com/atsomepath/command"]
+		},
+		"subscribed": {
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/subscribed",
+			"replications": ["https://backup.somewhere.else.com/atsomepath/subscribed"]
+		},
+		"subscribers": {
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/subscribers",
+			"replications": ["https://backup.somewhere.else.com/atsomepath/subscribers"]
+		},
+		"deny": {
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/deny",
+			"replications": ["https://backup.somewhere.else.com/atsomepath/deny"]
+		},
+		"past_public_keys": {
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/streams/past_public_keys",
+			"replications": ["https://backup.somewhere.else.com/atsomepath/past_public_keys"]
+		}
+	},
+	"services": {
+		"cache": {
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/services/cache_service"
+		},
+		"federation_registry": {
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/services/federation_registry"
+		},
+		"stream_registry": {
+			"url": "https://squirrelpub.example.squirrelpub.com/.squirrelpub/services/stream_registry"
+		}
+	},
+	"federation_anchors": [
+		"example.squirrelpub.com",
+		"squirrelpub.com",
+		"example.com"
+	]
+}
+----
+====
+
+This identity can be easily statically hosted, including on GitHub Pages!
+
+Simply create a file named `index.json` at the path `.squirrelpub/identity/` and throw it at the `Deploy static content to Pages` GitHub Action!
+
+See a more examples in this repository at link:./example/.squirrelpub[].
+
