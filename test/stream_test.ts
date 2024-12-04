@@ -62,7 +62,7 @@ Deno.test({
 		assertSpyCalls(spy, 2);
 		assertSpyCallArgs(spy, 0, [stream.constructMessageUrl(1)]);
 		assertSpyCallArgs(spy, 1, [stream.constructMessageUrl(0)]);
-		
+
 		assertEquals(page.length, 2);
 		const first_message = page[0];
 

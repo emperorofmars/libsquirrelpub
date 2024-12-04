@@ -1,14 +1,20 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 /**
  * This library will fetch Squirrelpub objects.
- * 
+ *
  * Example on how to fetch an 'Identity', the central object in Squirrelpub:
  * ``` ts
  * import squirrelpub from "@squirrelpub/libsquirrelpub";
- * 
+ *
  * const identity = await squirrelpub.fetchIdentity("example.com");
  * console.log(identity.display_name_id);
  * ```
- * 
+ *
  * Example on how to fetch an Identities 'Stream', and then the latest 10 messages from the Stream:
  * ``` ts
  * const stream = await squirrelpub.fetchStream(identity.stream);

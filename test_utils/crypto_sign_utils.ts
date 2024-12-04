@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import { importKey, signString } from "../src/util/Crypto.mts";
 import * as testObjects from "../test/objects.ts";
 
@@ -17,9 +23,9 @@ Deno.test({
 	async fn() {
 		const path = "example/.squirrelpub/identity/index.json";
 		//const path = "example/.squirrelpub/streams/post/index.json";
-		
+
 		const raw_json = await Deno.readTextFile(path);
-		
+
 		console.log(await signString(raw_json, await importKey(testObjects.test_identity_private_key)));
 	}
 });

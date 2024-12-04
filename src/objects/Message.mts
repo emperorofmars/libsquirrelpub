@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 import type { Identity } from "../libsquirrelpub.mts";
 import type { Post } from './Post.mts';
 import type { SquirrelpubMeta, SquirrelpubBase } from './SquirrelpubBase.mts';
@@ -5,7 +11,7 @@ import type { SquirrelpubPayload } from "./SquirrelpubPayload.mts";
 
 /**
  * A Squirrelpub Message.
- * 
+ *
  * It can describe a Post (like 'microblog') or a Command (like 'delete').
  */
 export class Message implements SquirrelpubBase {
@@ -13,7 +19,7 @@ export class Message implements SquirrelpubBase {
 	 * The squirrelpub object contains the squirrelpub type, version and optional URL to retrieve the signature of the original payload, if not present in the http header.
 	 */
 	squirrelpub!: SquirrelpubMeta;
-	
+
 	/**
 	 * Support custom properties. Squirrelpub is extensible
 	 */ // deno-lint-ignore no-explicit-any
@@ -27,13 +33,13 @@ export class Message implements SquirrelpubBase {
 
 	/** Squirrelpub ID of the owner Identity. */
 	owner_id!: string;
-	
+
 	/** Date and time of the creation of this message as ISOString. */
 	timestamp!: string;
-	
+
 	/** The stream this Message is part of. */
 	stream!: string;
-	
+
 	/** If the message_type is 'post', get the Post. */
 	post: Post | undefined;
 

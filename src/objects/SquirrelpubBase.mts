@@ -1,3 +1,9 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
 /**
  * Squirrelpub object metadata, which is present on every squirrelpub object.
  */
@@ -26,7 +32,7 @@ export interface SquirrelpubBase {
 	 * The Squirrelpub object contains the squirrelpub type, version and optional URL to retrieve the signature of the original payload, if not present in the http header.
 	 */
 	squirrelpub: SquirrelpubMeta;
-	
+
 	/**
 	 * Support custom properties. Squirrelpub is extensible
 	 */ // deno-lint-ignore no-explicit-any
